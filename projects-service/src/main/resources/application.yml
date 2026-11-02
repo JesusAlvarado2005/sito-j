@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: projects-service
+
+  datasource:
+    # Valori di default per lo sviluppo locale; in Docker/produzione arrivano dalle variabili d'ambiente
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${POSTGRES_DB:sitoj}
+    username: ${PROJECTS_DB_USER:projects_svc}
+    password: ${PROJECTS_DB_PASSWORD:change-me-projects}
+
+  jpa:
+    # Lo schema lo crea SOLO Flyway: Hibernate verifica che le entity corrispondano alle tabelle
+    hibernate:
+      ddl-auto: validate
+    # Niente query lazy durante il rendering: le transazioni finiscono nel service
+    open-in-view: false
+    properties:
+      hibernate:
+        default_schema: projects
+
+  flyway:
+    schemas: projects
+    default-schema: projects
+
+  mvc:
+    # Gli errori vengono restituiti come ProblemDetail (RFC 9457)
+    problemdetails:
+      enabled: true
+
+server:
+  port: ${SERVER_PORT:8082}
+  error:
+    include-stacktrace: never
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
