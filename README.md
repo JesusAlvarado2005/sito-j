@@ -16,3 +16,4 @@ curl localhost:8081/actuator/health
 | Modulo | Porta locale |
 |---|---|
 | profile-service | 8081 |
+| projects-service | 8082 |
