@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="it" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jesus Alvarado — Junior Java Developer</title>
+    <meta name="description" content="Junior Java Developer. Backend con Java e Spring Boot, dal database al deploy.">
+    <!-- Tema applicato PRIMA del rendering: niente "lampo" bianco al caricamento -->
+    <script>
+        (function () {
+            var saved = new URLSearchParams(location.search).get('theme') || localStorage.getItem('theme');
+            var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <!-- Prototipo: font da Google. Nel sito vero li serviremo noi (privacy/GDPR). -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav" id="nav">
+    <a href="#top" class="brand" aria-label="Torna all'inizio">
+        <span class="monogram">JA</span>
+    </a>
+    <nav class="nav-links" aria-label="Navigazione principale">
+        <a href="#chi-sono">Chi sono</a>
+        <a href="#progetti">Progetti</a>
+        <a href="#skill">Skill</a>
+        <a href="#contatti">Contatti</a>
+    </nav>
+    <div class="nav-actions">
+        <a href="#" class="lang" aria-label="Switch to English">EN</a>
+        <button class="theme-toggle" id="themeToggle" aria-label="Cambia tema">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M1.5 12h3M19.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        </button>
+    </div>
+</header>
+
+<main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-glow"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-inner">
+            <p class="eyebrow hero-anim">Junior Java Developer · Italia</p>
+            <h1 class="hero-title hero-anim"><span class="gold-text">Jesus Alvarado.</span></h1>
+            <p class="hero-sub hero-anim">Costruisco backend solidi con Java e Spring&nbsp;Boot.<br>Dal database al deploy.</p>
+            <div class="hero-cta hero-anim">
+                <a class="btn btn-gold" href="#progetti">Guarda i progetti</a>
+                <a class="btn btn-ghost" href="#contatti">Contattami <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+        <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ============ MANIFESTO (parole che si accendono scorrendo) ============ -->
+    <section class="statement" aria-label="Manifesto">
+        <p class="statement-text" id="statement">Codice pulito. Architetture chiare. Test che fanno dormire tranquilli. E la voglia di imparare qualcosa di nuovo ogni giorno.</p>
+    </section>
+
+    <!-- ============ NUMERI ============ -->
+    <section class="numbers">
+        <div class="container">
+            <p class="kicker" data-reveal>Questo sito è un progetto</p>
+            <h2 class="section-title" data-reveal>Costruito da zero.<br><span class="muted">Con cura, riga per riga.</span></h2>
+            <div class="stats">
+                <div class="stat" data-reveal><span class="stat-num" data-count="6">6</span><span class="stat-label">microservizi</span></div>
+                <div class="stat" data-reveal><span class="stat-num" data-count="45">45</span><span class="stat-label">test automatici</span></div>
+                <div class="stat" data-reveal><span class="stat-num" data-count="2">2</span><span class="stat-label">lingue</span></div>
+                <div class="stat" data-reveal><span class="stat-num"><span data-count="0">0</span>€</span><span class="stat-label">di hosting</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PROGETTI ============ -->
+    <section class="projects" id="progetti">
+        <div class="container">
+            <p class="kicker" data-reveal>Progetti</p>
+            <h2 class="section-title" data-reveal>Cose che ho costruito.</h2>
+
+            <div class="cards">
+                <article class="card card-featured" data-reveal>
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <span class="badge">In evidenza</span>
+                        <h3>sito-j</h3>
+                        <p>Il sito che stai guardando: 6 microservizi Spring Boot, PostgreSQL, Docker, bilingue, ospitato a costo zero.</p>
+                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4</li><li>PostgreSQL</li><li>Docker</li></ul>
+                    </div>
+                    <div class="card-meta">
+                        <div class="langbar" aria-label="Java 86%, HTML 9%, CSS 5%"><span style="--w:86%"></span><span style="--w:9%"></span><span style="--w:5%"></span></div>
+                        <div class="repo-stats"><span>★ <b data-count="12">12</b></span><span>Java</span><span>aggiornato 2 giorni fa</span></div>
+                        <a class="card-link" href="#">Scopri il progetto <span aria-hidden="true">→</span></a>
+                    </div>
+                </article>
+
+                <article class="card" data-reveal>
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <h3>Progetto due</h3>
+                        <p>Descrizione breve del progetto: il problema, la soluzione, cosa ho fatto io.</p>
+                        <ul class="tags"><li>Spring Boot</li><li>REST</li></ul>
+                    </div>
+                    <div class="card-meta">
+                        <div class="langbar"><span style="--w:100%"></span></div>
+                        <a class="card-link" href="#">Scopri <span aria-hidden="true">→</span></a>
+                    </div>
+                </article>
+
+                <article class="card" data-reveal>
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <h3>Progetto tre</h3>
+                        <p>Un altro progetto con una descrizione di una o due righe al massimo.</p>
+                        <ul class="tags"><li>Java</li><li>GitLab CI</li></ul>
+                    </div>
+                    <div class="card-meta">
+                        <div class="langbar"><span style="--w:70%"></span><span style="--w:30%"></span></div>
+                        <a class="card-link" href="#">Scopri <span aria-hidden="true">→</span></a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SKILL (nastri che scorrono) ============ -->
+    <section class="skills" id="skill">
+        <div class="container">
+            <p class="kicker" data-reveal>Skill</p>
+            <h2 class="section-title" data-reveal>Gli strumenti<br><span class="muted">che uso ogni giorno.</span></h2>
+        </div>
+        <div class="marquee" aria-label="Elenco skill">
+            <div class="marquee-track">
+                <span>Java</span><span>Spring Boot</span><span>Spring Data JPA</span><span>Hibernate</span><span>PostgreSQL</span><span>Flyway</span><span>REST API</span><span>Maven</span>
+                <span aria-hidden="true">Java</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Spring Data JPA</span><span aria-hidden="true">Hibernate</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">Flyway</span><span aria-hidden="true">REST API</span><span aria-hidden="true">Maven</span>
+            </div>
+        </div>
+        <div class="marquee marquee-reverse" aria-hidden="true">
+            <div class="marquee-track">
+                <span>Docker</span><span>Git</span><span>GitHub Actions</span><span>Testcontainers</span><span>JUnit</span><span>Linux</span><span>Thymeleaf</span><span>Vaadin</span>
+                <span>Docker</span><span>Git</span><span>GitHub Actions</span><span>Testcontainers</span><span>JUnit</span><span>Linux</span><span>Thymeleaf</span><span>Vaadin</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CHI SONO + PERCORSO ============ -->
+    <section class="about" id="chi-sono">
+        <div class="container about-grid">
+            <div class="about-photo" data-reveal>
+                <div class="photo-ring"><span>JA</span></div>
+            </div>
+            <div class="about-text">
+                <p class="kicker" data-reveal>Chi sono</p>
+                <h2 class="section-title" data-reveal>Junior, <span class="gold-text">non improvvisato.</span></h2>
+                <p class="lead" data-reveal>Qui andrà la tua bio: due o tre frasi su chi sei, cosa ti appassiona e che tipo di lavoro cerchi. Breve, diretta, umana.</p>
+
+                <ol class="timeline" id="timeline">
+                    <li data-reveal><span class="tl-date">2025 — oggi</span><h3>Ruolo attuale</h3><p>Azienda · cosa fai in una riga</p></li>
+                    <li data-reveal><span class="tl-date">2024 — 2025</span><h3>Esperienza precedente</h3><p>Azienda · cosa hai fatto</p></li>
+                    <li data-reveal><span class="tl-date">2019 — 2024</span><h3>Diploma / corso</h3><p>Scuola o istituto</p></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTATTI ============ -->
+    <section class="cta" id="contatti">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <h2 class="cta-title" data-reveal>Parliamo<span class="gold-text">.</span></h2>
+            <p class="lead" data-reveal>Un'opportunità, un progetto o anche solo un consiglio: rispondo sempre.</p>
+            <div class="hero-cta" data-reveal>
+                <a class="btn btn-gold" href="#">Scrivimi</a>
+                <a class="btn btn-ghost" href="#">Scarica il CV</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <span>© 2026 Jesus Alvarado</span>
+        <nav class="socials" aria-label="Social">
+            <a href="https://github.com/JesusAlvarado2005">GitHub</a>
+            <a href="#">GitLab</a>
+            <a href="#">LinkedIn</a>
+        </nav>
+    </div>
+</footer>
+
+<!-- GSAP + ScrollTrigger: animazioni legate allo scroll (stile Apple) -->
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js" defer></script>
+<script src="app.js" defer></script>
+</body>
+</html>
