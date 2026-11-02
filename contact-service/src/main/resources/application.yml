@@ -35,6 +35,16 @@ spring:
     properties:
       mail.smtp.auth: true
       mail.smtp.starttls.enable: true
+      # Senza timeout JavaMail aspetta all'infinito: un SMTP bloccato fermerebbe il job
+      mail.smtp.connectiontimeout: 10000
+      mail.smtp.timeout: 10000
+      mail.smtp.writetimeout: 10000
+
+  # Timeout per tutte le chiamate RestClient (Turnstile)
+  http:
+    clients:
+      connect-timeout: 5s
+      read-timeout: 10s
 
 server:
   port: ${SERVER_PORT:8083}
@@ -57,10 +67,20 @@ contact:
   turnstile:
     secret: ${TURNSTILE_SECRET:}
     url: https://challenges.cloudflare.com/turnstile/v0/siteverify
-  # Sale per l'hash degli IP (privacy: l'IP in chiaro non viene mai salvato)
-  ip-salt: ${CONTACT_IP_SALT:change-me-salt}
-  notification:
+  # Chiave HMAC per l'hash degli IP. OBBLIGATORIA: senza, il servizio non parte.
+  ip-salt: ${CONTACT_IP_SALT:}
+  # Difesa in profondità: il rate limit principale sarà nel gateway
+  rate-limit:
+    per-ip: 5
+    global: 50
+    window: PT1H
+  # GDPR: i messaggi più vecchi di così vengono cancellati (job notturno)
+  retention: P365D
+  # Job pianificati (notifiche + pulizia). Nei test sono disattivati.
+  jobs:
     enabled: true
+  notification:
     interval: PT1M
+    max-attempts: 12      # con il backoff esponenziale copre circa 20 ore
     to: ${CONTACT_NOTIFY_TO:}
     from: ${MAIL_USERNAME:}

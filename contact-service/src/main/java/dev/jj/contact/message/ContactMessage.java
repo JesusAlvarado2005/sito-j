@@ -26,5 +26,7 @@ class ContactMessage {
     @Enumerated(EnumType.STRING)
     MessageStatus status;
     Instant notifiedAt;
+    int notifyAttempts;
+    Instant nextAttemptAt;
     Instant createdAt;
 }

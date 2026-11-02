@@ -1,6 +1,6 @@
 package dev.jj.contact.message;
 
-import org.springframework.beans.factory.annotation.Value;
+import dev.jj.contact.ContactProperties;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
@@ -12,12 +12,10 @@ class MailNotifier implements Notifier {
     private final String to;
     private final String from;
 
-    MailNotifier(JavaMailSender mailSender,
-                 @Value("${contact.notification.to:}") String to,
-                 @Value("${contact.notification.from:}") String from) {
+    MailNotifier(JavaMailSender mailSender, ContactProperties props) {
         this.mailSender = mailSender;
-        this.to = to;
-        this.from = from;
+        this.to = props.notification().to() == null ? "" : props.notification().to();
+        this.from = props.notification().from() == null ? "" : props.notification().from();
     }
 
     @Override

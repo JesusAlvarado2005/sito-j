@@ -27,6 +27,12 @@ spring:
     problemdetails:
       enabled: true
 
+  # Timeout per le chiamate a GitHub/GitLab: senza, una risposta bloccata fermerebbe il job di sync
+  http:
+    clients:
+      connect-timeout: 5s
+      read-timeout: 15s
+
 server:
   port: ${SERVER_PORT:8082}
   error:

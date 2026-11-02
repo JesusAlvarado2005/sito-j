@@ -493,7 +493,18 @@ sequenceDiagram
 | DB | Un utente per servizio, permessi solo sul proprio schema; backup `pg_dump` giornaliero |
 | Segreti | File `.env` (non committato) + `.env.example` committato |
 | Header | CSP, HSTS (impostati da Caddy), X-Content-Type-Options, Referrer-Policy |
-| Privacy | IP salvato solo come hash; pagina privacy (IT/EN) |
+| Privacy | IP salvato solo come HMAC-SHA256 con chiave segreta (`CONTACT_IP_SALT`, obbligatoria: senza il servizio non parte); messaggi cancellati dopo 365 giorni (job notturno); pagina privacy (IT/EN) che lo dichiara |
+| Form contatti | Turnstile fail-closed; rate limit di difesa nel servizio (5/ora per IP, 50/ora in totale → 429) prima di chiamare Cloudflare; header email ripuliti dagli a-capo |
+| Chiamate esterne | Timeout su SMTP (10 s) e HTTP (connect 5 s, read 10-15 s): un servizio esterno bloccato non deve bloccare i job |
+
+### 8.1 Obblighi per gateway e web-public (contratto di sicurezza)
+
+Questi punti sono **presupposti** dai servizi interni. Vanno implementati e testati quando costruiremo gateway e web-public:
+
+1. **`X-Client-Ip` va SOVRASCRITTO** con l'IP reale del visitatore, preso dall'header affidabile impostato da Caddy, e mai inoltrato così come arriva dal client. contact-service lo usa per il rate limit e per l'hash, e scarta i valori che non sembrano un IP.
+2. **Rate limit rigido sul POST del form** nel gateway (quello in contact-service è solo una difesa in profondità e può essere superato di poco con richieste simultanee).
+3. **Limite di dimensione del body** (es. 64 KB) nel gateway: contact-service valida i campi dopo il parsing del JSON.
+4. **Le API `/api/**` non sono instradate verso l'esterno.**
 
 ---
 

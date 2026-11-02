@@ -19,6 +19,9 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -99,5 +102,48 @@ class MessageApiTests {
                     .andExpect(status().isBadRequest());
         }
         assertThat(count()).isZero();
+    }
+
+    private org.springframework.test.web.servlet.ResultActions send(String ip) throws Exception {
+        var req = post("/api/v1/messages").contentType(MediaType.APPLICATION_JSON)
+                .content(json("Mario", "mario@example.com", "Ciao!", "it"));
+        return mvc.perform(ip == null ? req : req.header("X-Client-Ip", ip));
+    }
+
+    @Test
+    void limitsMessagesPerIpWithoutCallingCloudflare() throws Exception {
+        when(turnstile.verify(any(), any())).thenReturn(true);
+        for (int i = 0; i < 5; i++) {
+            send("198.51.100.1").andExpect(status().isCreated());
+        }
+        send("198.51.100.1").andExpect(status().isTooManyRequests());
+        send("198.51.100.2").andExpect(status().isCreated());     // un altro IP passa
+        verify(turnstile, org.mockito.Mockito.times(6)).verify(any(), any());  // il 6° non ha chiamato Cloudflare
+    }
+
+    @Test
+    void appliesGlobalLimitAgainstRotatingIps() throws Exception {
+        jdbc.update("""
+                INSERT INTO contact.contact_message (id, name, email, subject, body, lang, ip_hash)
+                SELECT gen_random_uuid(), 'x', 'x@example.com', 's', 'b', 'en', 'hash-' || g
+                FROM generate_series(1, 50) g""");
+        send("203.0.113.77").andExpect(status().isTooManyRequests());
+        verify(turnstile, never()).verify(any(), any());
+    }
+
+    @Test
+    void ignoresClientIpHeaderThatIsNotAnIp() throws Exception {
+        when(turnstile.verify(any(), any())).thenReturn(true);
+        send("<script>alert(1)</script>").andExpect(status().isCreated());
+        verify(turnstile).verify(eq("tok"), isNull());             // a Cloudflare non arriva spazzatura
+    }
+
+    @Test
+    void hashIsStableForSameIpAndDifferentAcrossIps() throws Exception {
+        when(turnstile.verify(any(), any())).thenReturn(true);
+        send("192.0.2.1");
+        send("192.0.2.1");
+        send("192.0.2.2");
+        assertThat(jdbc.queryForObject("SELECT count(DISTINCT ip_hash) FROM contact.contact_message", Integer.class)).isEqualTo(2);
     }
 }

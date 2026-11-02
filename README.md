@@ -10,6 +10,8 @@ cp .env.example .env          # solo la prima volta
 docker compose up -d          # PostgreSQL (crea schemi e utenti al primo avvio)
 ./mvnw verify                 # compila e lancia i test (Testcontainers, serve Docker)
 ./mvnw -pl profile-service spring-boot:run
+# contact-service legge i segreti dalle variabili d'ambiente: caricale dal .env
+set -a; source .env; set +a; ./mvnw -pl contact-service spring-boot:run
 curl localhost:8081/actuator/health
 ```
 
