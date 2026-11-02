@@ -17,3 +17,4 @@ curl localhost:8081/actuator/health
 |---|---|
 | profile-service | 8081 |
 | projects-service | 8082 |
+| contact-service | 8083 |
