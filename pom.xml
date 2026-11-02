@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!--
+        POM PARENT (aggregatore) del progetto multi-modulo.
+        - Eredita da spring-boot-starter-parent: versioni delle dipendenze, configurazione dei plugin, encoding.
+        - Elenca i moduli (i microservizi) in <modules>: "./mvnw verify" dalla root li compila tutti.
+        - Qui si centralizzano le versioni comuni (Java, e in futuro i BOM di Spring Cloud e Vaadin).
+    -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>4.1.2</version>
+        <relativePath/>
+    </parent>
+
+    <groupId>dev.jj</groupId>
+    <artifactId>sito-j</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>sito-j</name>
+    <description>Sito personale - progetto multi-modulo a microservizi</description>
+
+    <modules>
+        <module>profile-service</module>
+        <!-- prossimi: projects-service, contact-service, web-public, web-admin, gateway -->
+    </modules>
+
+    <properties>
+        <java.version>25</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Immagine Postgres usata sia in docker-compose sia nei test (Testcontainers) -->
+        <postgres.image>postgres:18-alpine</postgres.image>
+    </properties>
+
+    <!--
+        Quando aggiungeremo gateway e web-admin, qui andranno i BOM:
+        <dependencyManagement> spring-cloud-dependencies + vaadin-bom </dependencyManagement>
+    -->
+</project>
