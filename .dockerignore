@@ -1,0 +1,4 @@
+# Nel contesto di build entrano SOLO i jar: niente .env, sorgenti o .git dentro le immagini
+**
+!*/target/*.jar
+*/target/*.jar.original

@@ -15,7 +15,8 @@ Il mio sito personale: chi sono, i progetti, il percorso e un form contatti.
 | Prototipo grafico della home (`design/prototype`) | ✅ fatto |
 | `web-public` — sito pubblico in Thymeleaf (home bilingue, SEO, sitemap, loghi tecnologie) | ✅ fatto, con test |
 | Form contatti nel sito (rate limit, honeypot, Turnstile, privacy IT/EN) | ✅ fatto, con test |
-| Gateway / Caddy, CI/CD, deploy | 🔜 prossimo |
+| Docker Compose + Caddy (HTTPS, CSP, blocco API) e CI su GitHub Actions | ✅ fatto |
+| Deploy su Oracle Cloud ([guida](docs/DEPLOY.md)) | 🔜 prossimo |
 | `web-admin` — pannello in Vaadin | ⏳ |
 
 ## Stack
@@ -34,6 +35,9 @@ cp .env.example .env          # poi cambia password e segreti
 docker compose up -d          # PostgreSQL
 ./mvnw verify                 # build + test
 ./mvnw -pl profile-service spring-boot:run
+
+# tutto il sito in Docker, come in produzione
+./mvnw -DskipTests package && docker compose up -d --build   # → http://localhost:8088
 ```
 
 Porte: web-public `8080`, profile `8081`, projects `8082`, contact `8083`.

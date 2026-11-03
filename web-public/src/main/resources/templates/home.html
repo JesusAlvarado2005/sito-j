@@ -4,14 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <th:block th:replace="~{fragments :: seo(${v})}"></th:block>
-    <!-- Tema applicato PRIMA del rendering: niente "lampo" bianco al caricamento -->
-    <script>
-        (function () {
-            var saved = new URLSearchParams(location.search).get('theme') || localStorage.getItem('theme');
-            var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-            document.documentElement.dataset.theme = theme;
-        })();
-    </script>
+    <!-- Tema applicato PRIMA del rendering (script volutamente sincrono e minuscolo) -->
+    <script th:src="@{/js/theme.js}"></script>
     <link rel="preload" th:href="@{/fonts/inter-latin-700.woff2}" as="font" type="font/woff2" crossorigin>
     <link rel="icon" th:href="@{/logo.svg}" type="image/svg+xml">
     <link rel="stylesheet" th:href="@{/css/site.css}">

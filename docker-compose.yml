@@ -1,19 +1,43 @@
-# Ambiente locale. Avvio:  docker compose up -d
-# Per ora c'è solo PostgreSQL; i microservizi verranno aggiunti man mano.
+# Tutto il sito in locale:   ./mvnw -DskipTests package && docker compose up -d --build
+# Poi apri http://localhost:8088
+# Produzione: docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d   (vedi docs/DEPLOY.md)
+#
+# Ogni servizio riceve SOLO le variabili che gli servono (niente env_file condiviso con tutti i segreti).
+# Nessun servizio Java pubblica porte: da fuori si entra solo da Caddy.
 name: sito-j
+
+x-java: &java
+  restart: unless-stopped
+  mem_limit: 512m
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+x-health: &health
+  test: ["CMD-SHELL", "wget -qO- http://localhost:$${SERVER_PORT}/actuator/health/readiness >/dev/null || exit 1"]
+  interval: 10s
+  timeout: 3s
+  retries: 5
+  start_period: 60s
 
 services:
   postgres:
     image: postgres:18-alpine
     container_name: sitoj-postgres
     restart: unless-stopped
-    env_file: .env
     environment:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      # usati solo dallo script di init per creare un utente per servizio
+      PROFILE_DB_USER: ${PROFILE_DB_USER}
+      PROFILE_DB_PASSWORD: ${PROFILE_DB_PASSWORD}
+      PROJECTS_DB_USER: ${PROJECTS_DB_USER}
+      PROJECTS_DB_PASSWORD: ${PROJECTS_DB_PASSWORD}
+      CONTACT_DB_USER: ${CONTACT_DB_USER}
+      CONTACT_DB_PASSWORD: ${CONTACT_DB_PASSWORD}
     ports:
-      # solo localhost: il DB non è mai raggiungibile da fuori
+      # solo localhost, per lo sviluppo dall'IDE. In produzione viene tolta (docker-compose.prod.yml).
       - "127.0.0.1:5432:5432"
     volumes:
       - pgdata:/var/lib/postgresql
@@ -25,5 +49,82 @@ services:
       timeout: 3s
       retries: 10
 
+  profile-service:
+    <<: *java
+    image: ghcr.io/jesusalvarado2005/sito-j-profile-service:${IMAGE_TAG:-latest}
+    build: { context: ., args: { MODULE: profile-service } }
+    environment:
+      SERVER_PORT: 8081
+      DB_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      PROFILE_DB_USER: ${PROFILE_DB_USER}
+      PROFILE_DB_PASSWORD: ${PROFILE_DB_PASSWORD}
+    healthcheck: *health
+
+  projects-service:
+    <<: *java
+    image: ghcr.io/jesusalvarado2005/sito-j-projects-service:${IMAGE_TAG:-latest}
+    build: { context: ., args: { MODULE: projects-service } }
+    environment:
+      SERVER_PORT: 8082
+      DB_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      PROJECTS_DB_USER: ${PROJECTS_DB_USER}
+      PROJECTS_DB_PASSWORD: ${PROJECTS_DB_PASSWORD}
+      # facoltativo: senza token GitHub concede 60 richieste/ora, bastano per la sync ogni 6 ore
+      SYNC_GITHUB_TOKEN: ${SYNC_GITHUB_TOKEN:-}
+    healthcheck: *health
+
+  contact-service:
+    <<: *java
+    image: ghcr.io/jesusalvarado2005/sito-j-contact-service:${IMAGE_TAG:-latest}
+    build: { context: ., args: { MODULE: contact-service } }
+    environment:
+      SERVER_PORT: 8083
+      DB_HOST: postgres
+      POSTGRES_DB: ${POSTGRES_DB}
+      CONTACT_DB_USER: ${CONTACT_DB_USER}
+      CONTACT_DB_PASSWORD: ${CONTACT_DB_PASSWORD}
+      TURNSTILE_SECRET: ${TURNSTILE_SECRET}
+      CONTACT_IP_SALT: ${CONTACT_IP_SALT}
+      CONTACT_NOTIFY_TO: ${CONTACT_NOTIFY_TO}
+      MAIL_USERNAME: ${MAIL_USERNAME}
+      MAIL_PASSWORD: ${MAIL_PASSWORD}
+    healthcheck: *health
+
+  web-public:
+    <<: *java
+    image: ghcr.io/jesusalvarado2005/sito-j-web-public:${IMAGE_TAG:-latest}
+    build: { context: ., args: { MODULE: web-public } }
+    environment:
+      SERVER_PORT: 8080
+      SITE_BASE_URL: ${SITE_BASE_URL:-http://localhost:8088}
+      PROFILE_SERVICE_URL: http://profile-service:8081
+      PROJECTS_SERVICE_URL: http://projects-service:8082
+      CONTACT_SERVICE_URL: http://contact-service:8083
+      TURNSTILE_SITE_KEY: ${TURNSTILE_SITE_KEY}
+    depends_on:
+      profile-service: { condition: service_healthy }
+      projects-service: { condition: service_healthy }
+      contact-service: { condition: service_healthy }
+    healthcheck: *health
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    environment:
+      SITE_ADDRESS: ${SITE_ADDRESS:-http://localhost}
+    ports:
+      # in locale: http://localhost:8088 (solo dal tuo PC). In produzione 80/443 (docker-compose.prod.yml).
+      - "127.0.0.1:8088:80"
+    volumes:
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      web-public: { condition: service_healthy }
+
 volumes:
   pgdata:
+  caddy_data:
+  caddy_config:

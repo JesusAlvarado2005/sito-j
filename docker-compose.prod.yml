@@ -1,0 +1,20 @@
+# Override per la VM di produzione (Oracle Cloud). Uso:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml pull
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+# Le immagini arrivano da GHCR (costruite da GitHub Actions): sulla VM non si compila niente.
+services:
+  postgres:
+    restart: always
+    ports: !reset []          # il DB non espone nessuna porta, nemmeno su localhost
+
+  profile-service:  { restart: always }
+  projects-service: { restart: always }
+  contact-service:  { restart: always }
+  web-public:       { restart: always }
+
+  caddy:
+    restart: always
+    ports: !override
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"         # HTTP/3

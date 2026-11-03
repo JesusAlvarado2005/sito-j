@@ -20,6 +20,8 @@
 
 ## 2. I microservizi: sono 6
 
+> **Decisione (nov 2026):** per ora **niente gateway Java**. Spring Cloud Gateway per Boot 4.1 esiste solo in release candidate; i suoi compiti (unico ingresso, blocco di `/api` e `/actuator`, limite del body, header di sicurezza) li fa **Caddy**, il rate limit lo fa web-public (§8.1). Il gateway si potrà inserire più avanti tra Caddy e web-public senza toccare gli altri servizi.
+
 ```
                          Internet
                             │

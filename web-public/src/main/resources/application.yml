@@ -23,6 +23,9 @@ server:
   # (reti private e localhost: Caddy/gateway nella rete Docker). Un X-Forwarded-For inviato da fuori non conta.
   forward-headers-strategy: native
   tomcat:
+    # Redirect relativi ("Location: /it"): dietro un proxy Tomcat non conosce porta e dominio pubblici,
+    # e un redirect assoluto ricostruito da lui potrebbe puntare all'indirizzo sbagliato
+    use-relative-redirects: true
     # Il form pesa pochi KB: oltre i 64 KB la richiesta non viene nemmeno letta
     max-http-form-post-size: 64KB
     max-swallow-size: 64KB
