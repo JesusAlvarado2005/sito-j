@@ -18,13 +18,14 @@
            th:text="${#strings.toUpperCase(v.otherLang)}">EN</a>
     </div>
 </header>
-<main class="legal container">
+<!-- Due versioni dei testi: sito completo (con form) e copia statica su GitHub Pages (senza form) -->
+<main class="legal container" th:with="pre=${staticMode} ? 'privacy.static' : 'privacy', count=${staticMode} ? 5 : 6">
     <p class="kicker" th:text="#{privacy.kicker}">Privacy</p>
     <h1 class="section-title" th:text="#{privacy.title}">Come tratto i tuoi dati</h1>
-    <p class="lead" th:text="#{privacy.intro}">Intro</p>
-    <section th:each="n : ${#numbers.sequence(1, 6)}">
-        <h2 th:text="#{|privacy.s${n}.title|}">Titolo</h2>
-        <p th:utext="#{|privacy.s${n}.text|(${#strings.escapeXml(v.email)})}">Testo</p>
+    <p class="lead" th:text="#{|${pre}.intro|}">Intro</p>
+    <section th:each="n : ${#numbers.sequence(1, count)}">
+        <h2 th:text="#{|${pre}.s${n}.title|}">Titolo</h2>
+        <p th:utext="#{|${pre}.s${n}.text|(${#strings.escapeXml(v.email)})}">Testo</p>
     </section>
     <p class="note" th:text="#{privacy.updated}">Aggiornata</p>
     <p><a class="card-link" th:href="@{/{l}(l=${v.lang})}"><span aria-hidden="true">←</span> <th:block th:text="#{privacy.back}">Torna al sito</th:block></a></p>

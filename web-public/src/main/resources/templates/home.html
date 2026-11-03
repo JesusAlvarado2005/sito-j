@@ -163,8 +163,14 @@
 
             <p class="form-status form-ok" role="status" th:if="${sent}" th:text="#{contact.sent}">Messaggio inviato.</p>
 
+            <!-- Copia statica (GitHub Pages): senza backend il form non può funzionare, restano email e CV -->
+            <div class="hero-cta" data-reveal th:if="${staticMode}">
+                <a class="btn btn-gold" th:if="${v.email != null}" th:href="'mailto:' + ${v.email}" th:text="#{cta.write}">Scrivimi un'email</a>
+                <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="@{${v.cvUrl}}" th:text="#{cta.cv}" download>Scarica il CV</a>
+            </div>
+
             <form id="contactForm" class="contact-form" data-reveal method="post"
-                  th:action="@{/{l}/contact(l=${v.lang})}" th:object="${form}" th:unless="${sent}">
+                  th:action="@{/{l}/contact(l=${v.lang})}" th:object="${form}" th:unless="${sent == true or staticMode}">
                 <p class="form-status form-error" role="alert" th:if="${contactError != null}" th:text="#{${contactError}}">Errore</p>
                 <div class="field-row">
                     <label class="field"><span th:text="#{contact.name}">Nome</span>
@@ -191,7 +197,7 @@
                 <div class="form-actions">
                     <button class="btn btn-gold" type="submit" th:text="#{contact.send}">Invia</button>
                     <a class="btn btn-ghost" th:if="${v.email != null}" th:href="'mailto:' + ${v.email}" th:text="#{cta.write}">Scrivimi un'email</a>
-                    <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="${v.cvUrl}" th:text="#{cta.cv}">Scarica il CV</a>
+                    <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="@{${v.cvUrl}}" th:text="#{cta.cv}" download>Scarica il CV</a>
                 </div>
                 <p class="form-privacy"><th:block th:text="#{contact.privacy}">I tuoi dati servono solo a risponderti.</th:block> <a th:href="@{/{l}/privacy(l=${v.lang})}" th:text="#{contact.privacy.link}">Privacy</a></p>
             </form>

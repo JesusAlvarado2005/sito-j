@@ -39,6 +39,7 @@ class PageController {
             }
         }
         RedirectView redirect = new RedirectView("/" + lang);
+        redirect.setContextRelative(true);   // rispetta un eventuale context-path (es. /sito-j)
         redirect.setStatusCode(HttpStatus.FOUND);
         return redirect;
     }

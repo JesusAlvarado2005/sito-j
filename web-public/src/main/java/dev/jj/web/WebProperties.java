@@ -16,5 +16,10 @@ public record WebProperties(
         @NotBlank String profileServiceUrl,
         @NotBlank String projectsServiceUrl,
         /** Per quanto tempo si riusa la risposta di un servizio prima di richiederla di nuovo. */
-        @DefaultValue("PT5M") Duration cacheTtl) {
+        @DefaultValue("PT5M") Duration cacheTtl,
+        /**
+         * true solo per generare la copia statica (GitHub Pages): niente form, che senza backend non può funzionare,
+         * e informativa privacy adattata. Il sito "vero" (Docker/Oracle) resta false.
+         */
+        @DefaultValue("false") boolean staticMode) {
 }

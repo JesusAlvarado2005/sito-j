@@ -19,7 +19,8 @@ class WebConfig {
         return new LocaleResolver() {
             @Override
             public Locale resolveLocale(HttpServletRequest request) {
-                String uri = request.getRequestURI();
+                // senza il context-path: su GitHub Pages l'URL è /sito-j/it, la lingua resta "it"
+                String uri = request.getRequestURI().substring(request.getContextPath().length());
                 return uri.equals("/it") || uri.startsWith("/it/") ? Locale.ITALIAN : Locale.ENGLISH;
             }
 

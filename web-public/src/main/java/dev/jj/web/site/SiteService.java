@@ -144,13 +144,19 @@ public class SiteService {
         return json.writeValueAsString(person).replace("<", "\\u003c");
     }
 
-    /** Ammette solo http(s) e mailto: un "javascript:" salvato per errore nel DB non diventa mai un link. */
+    /**
+     * Ammette solo http(s), mailto e percorsi interni al sito ("/cv/file.pdf"):
+     * un "javascript:" salvato per errore nel DB non diventa mai un link.
+     * "//host" e "/\host" sono esclusi: il browser li tratterebbe come un sito esterno.
+     */
     static String safeUrl(String url) {
         if (url == null) {
             return null;
         }
-        String u = url.trim().toLowerCase(Locale.ROOT);
-        return u.startsWith("https://") || u.startsWith("http://") || u.startsWith("mailto:") ? url.trim() : null;
+        String trimmed = url.trim();
+        String u = trimmed.toLowerCase(Locale.ROOT);
+        boolean sitePath = u.startsWith("/") && !u.startsWith("//") && !u.startsWith("/\\");
+        return sitePath || u.startsWith("https://") || u.startsWith("http://") || u.startsWith("mailto:") ? trimmed : null;
     }
 
     private String msg(String code, Locale locale) {
