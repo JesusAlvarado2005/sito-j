@@ -35,6 +35,3 @@ build/
 ### Segreti locali ###
 .env
 
-### File locali dell assistente (non vanno nel repository pubblico) ###
-CLAUDE.md
-.claude/

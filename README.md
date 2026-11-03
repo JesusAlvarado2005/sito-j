@@ -1,61 +1,68 @@
 # sito-j
 
-Il mio sito personale: chi sono, i progetti, il percorso e un form contatti.
-È anche un progetto a sé: backend a microservizi in **Java 25 + Spring Boot 4**, pensato per girare **a costo zero**.
+**Sito online → https://jesusalvarado2005.github.io/sito-j/**
 
-*My personal website, built as a Spring Boot microservices project. Bilingual (IT/EN), work in progress.*
+Il mio sito personale (IT/EN) e, insieme, un progetto backend completo: microservizi in **Java 25 + Spring Boot 4**,
+PostgreSQL, Docker e Caddy, con CI su GitHub Actions.
 
-## Stato
+*My personal website (IT/EN) and a complete backend project: Java 25 + Spring Boot 4 microservices, PostgreSQL, Docker, Caddy, GitHub Actions CI.*
 
-| Parte | Stato |
+> Online c'è la **copia statica** del sito, generata dal sito vero ([scripts/export-static.sh](scripts/export-static.sh)) e ospitata gratis su GitHub Pages.
+> Lo stack completo, con database e form contatti, gira in Docker con un solo comando ed è pronto per il deploy su una VM ([docs/DEPLOY.md](docs/DEPLOY.md)).
+
+## Architettura
+
+```
+Internet ──▶ Caddy ──▶ web-public ──▶ profile-service  ─┐
+            (HTTPS,    (Spring MVC +   projects-service ─┼─▶ PostgreSQL
+             CSP)       Thymeleaf)     contact-service  ─┘   (uno schema e un utente per servizio)
+                                            │
+                                            ├─▶ GitHub / GitLab API (statistiche dei repository)
+                                            └─▶ Cloudflare Turnstile, SMTP (form contatti)
+```
+
+| Modulo | Cosa fa |
 |---|---|
-| `profile-service` — profilo, esperienze, formazione, skill (IT/EN) | ✅ fatto, con test |
-| `projects-service` — progetti, tag, statistiche sincronizzate da GitHub/GitLab | ✅ fatto, con test |
-| `contact-service` — form contatti (Turnstile, rate limit, IP in hash, notifica email, retention GDPR) | ✅ fatto, con test |
-| Prototipo grafico della home (`design/prototype`) | ✅ fatto |
-| `web-public` — sito pubblico in Thymeleaf (home bilingue, SEO, sitemap, loghi tecnologie) | ✅ fatto, con test |
-| Form contatti nel sito (rate limit, honeypot, Turnstile, privacy IT/EN) | ✅ fatto, con test |
-| Docker Compose + Caddy (HTTPS, CSP, blocco API) e CI su GitHub Actions | ✅ fatto |
-| Deploy su Oracle Cloud ([guida](docs/DEPLOY.md)) | 🔜 prossimo |
-| `web-admin` — pannello in Vaadin | ⏳ |
+| `profile-service` | Profilo, esperienze, formazione, skill. API REST con traduzioni IT/EN e fallback |
+| `projects-service` | Progetti e tag; sincronizza le statistiche dei repository da GitHub e GitLab ogni 6 ore |
+| `contact-service` | Messaggi del form: anti-bot Turnstile, rate limit, IP salvati solo come HMAC, email con outbox e retry, cancellazione dopo 12 mesi (GDPR) |
+| `web-public` | Il sito: pagine server-side, SEO (hreflang, sitemap, JSON-LD), cache con fallback se un servizio è giù, form con rate limit e honeypot |
+
+**Scelte principali**
+- Schema del DB solo tramite **Flyway**, Hibernate in `validate`; DTO record, entity mai fuori dal service; errori come **ProblemDetail**.
+- **Sicurezza:** solo Caddy è esposto; `/api` e `/actuator` bloccati; CSP senza script inline; IP reale ricavato solo da proxy fidati;
+  configurazione sensibile validata all'avvio; timeout su ogni chiamata esterna; container non root.
+- **Test:** 75 test (JUnit 5, MockMvc, Testcontainers con PostgreSQL vero).
+
+Il progetto completo è descritto in [docs/ARCHITETTURA.md](docs/ARCHITETTURA.md).
 
 ## Stack
 
-- Java 25, Spring Boot 4.1, Maven multi-modulo
-- PostgreSQL 18 (uno schema e un utente per servizio), Flyway
-- Test di integrazione con JUnit 5 e Testcontainers
-- Docker Compose; deploy previsto su Oracle Cloud Always Free con Caddy (HTTPS)
+Java 25 · Spring Boot 4.1 · Spring MVC · Thymeleaf · Spring Data JPA · Flyway · PostgreSQL 18 ·
+JUnit 5 · Testcontainers · Maven · Docker Compose · Caddy · GitHub Actions · GHCR
 
 ## Avvio in locale
 
-Serve Docker e JDK 25.
+Servono Docker e JDK 25.
 
 ```bash
-cp .env.example .env          # poi cambia password e segreti
-docker compose up -d          # PostgreSQL
-./mvnw verify                 # build + test
-./mvnw -pl profile-service spring-boot:run
-
-# tutto il sito in Docker, come in produzione
-./mvnw -DskipTests package && docker compose up -d --build   # → http://localhost:8088
+cp .env.example .env                                 # poi metti password e segreti tuoi
+./mvnw verify                                        # build + test
+./mvnw -DskipTests package && docker compose up -d --build
+# → http://localhost:8088
 ```
-
-Porte: web-public `8080`, profile `8081`, projects `8082`, contact `8083`.
-I dati reali (profilo e progetti) sono nei seed Flyway `db/seed`. Per vedere il sito: avvia profile, projects e web-public, poi apri http://localhost:8080
-Esempio: `curl "localhost:8082/api/v1/projects?lang=it&featured=true"`
 
 ## Struttura
 
 ```
-profile-service/    API del profilo
-projects-service/   API dei progetti + sync GitHub/GitLab
-contact-service/    form contatti
-web-public/         sito pubblico (Spring MVC + Thymeleaf, IT/EN)
-design/prototype/   prototipo statico della home (HTML/CSS/GSAP)
-docker/             init del database
-docs/ARCHITETTURA.md  progetto completo: servizi, tabelle, API, flussi, sicurezza, hosting
+profile-service/   projects-service/   contact-service/   web-public/
+docker/            Caddyfile e init del database
+scripts/           export della copia statica e pubblicazione su GitHub Pages
+docs/              ARCHITETTURA.md, DEPLOY.md
+design/prototype/  prototipo grafico iniziale (HTML/CSS/GSAP)
 ```
 
 ## Autore
 
-Jeanfranco Alvarado — [LinkedIn](https://www.linkedin.com/in/jeanfranco-alvarado-800a02344) · [GitHub](https://github.com/JesusAlvarado2005) · [GitLab](https://gitlab.com/JesusAlvarado2005)
+**Jeanfranco Alvarado**, Junior Backend Developer · Milano
+[LinkedIn](https://www.linkedin.com/in/jeanfranco-alvarado-800a02344) · [GitHub](https://github.com/JesusAlvarado2005) · [GitLab](https://gitlab.com/JesusAlvarado2005)
