@@ -106,16 +106,16 @@
                     <div class="card-body">
                         <span class="badge">In evidenza</span>
                         <h3>BackendTelemetry</h3>
-                        <p>Telemetria live del simulatore Le Mans Ultimate. Un bridge C++ invia i dati via WebSocket a 50&nbsp;Hz; il backend li salva su InfluxDB&nbsp;3 e una dashboard Vaadin li mostra in tempo reale, con mappa del tracciato e statistiche sui giri.</p>
-                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4.1</li><li>WebSocket</li><li>InfluxDB 3</li><li>Vaadin</li></ul>
+                        <p>Telemetria live di Le Mans Ultimate: un bridge C++ invia via WebSocket circa 66 campi per campione a 50&nbsp;Hz. Mia la persistenza su InfluxDB&nbsp;3, a blocchi e con una coda che non blocca mai la dashboard Vaadin (dati live, mappa del tracciato, statistiche sui giri).</p>
+                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4.1</li><li>WebSocket</li><li>InfluxDB 3</li><li>Vaadin</li><li>Docker Compose</li></ul>
                     </div>
                     <div class="card-meta">
                         <div class="highlights">
                             <div><b>50 Hz</b><span>flusso live</span></div>
-                            <div><b>~66</b><span>campi per campione</span></div>
+                            <div><b>5.000</b><span>punti per blocco nell'import CSV</span></div>
                             <div><b>drop-oldest</b><span>coda con backpressure</span></div>
                         </div>
-                        <div class="meta-row"><span>Tesina ITS · team di 2 · 2026</span><a class="card-link" href="#">Scopri il progetto <span aria-hidden="true">→</span></a></div>
+                        <div class="meta-row"><span>Tesina ITS · team di 2 · 2026</span><a class="card-link" href="https://gitlab.com/fr.mantegazza/backend-telemetry">GitLab <span aria-hidden="true">→</span></a></div>
                     </div>
                 </article>
 
@@ -123,8 +123,8 @@
                     <div class="card-glow" aria-hidden="true"></div>
                     <div class="card-body">
                         <h3>DB-Manager</h3>
-                        <p>Microservizio in Go per la gestione dei pali lungo tratte ferroviarie: permessi per ruolo, autenticazione JWT e dati dei sensori MQTT salvati su PostgreSQL.</p>
-                        <ul class="tags"><li>Go</li><li>Gin</li><li>PostgreSQL</li><li>GORM</li><li>MQTT</li></ul>
+                        <p>Microservizio in Go per la gestione dei pali ferroviari (40 solo nell'area di Milano): RBAC, login JWT integrato col servizio utenti, dati dei sensori MQTT su PostgreSQL, API documentate con Swagger. Team di 8, con code review.</p>
+                        <ul class="tags"><li>Go</li><li>Gin</li><li>PostgreSQL</li><li>GORM</li><li>Swagger</li><li>Docker Compose</li></ul>
                     </div>
                     <div class="meta-row"><span>Tirocinio Sysnet · 2026</span></div>
                 </article>
@@ -143,8 +143,8 @@
                     <div class="card-glow" aria-hidden="true"></div>
                     <div class="card-body">
                         <h3>Web app scuola di lingue</h3>
-                        <p>Applicazione web full-stack in Servlet/JSP, commissionata da un docente e sviluppata in un gruppo di quattro.</p>
-                        <ul class="tags"><li>Java</li><li>Servlet</li><li>JSP</li></ul>
+                        <p>Web app full-stack commissionata da un docente, realizzata e consegnata da solo: login con password in bcrypt, tre ruoli (admin, docente, studente) e corsi in cui ogni docente aggiunge i propri esercizi.</p>
+                        <ul class="tags"><li>Java</li><li>Servlet</li><li>JSP</li><li>MySQL</li><li>Tomcat</li></ul>
                     </div>
                     <div class="meta-row"><span>Tirocinio Galilux · 2025</span></div>
                 </article>
@@ -160,18 +160,18 @@
         </div>
         <div class="marquee" aria-label="Linguaggi, backend e database">
             <div class="marquee-track">
-                <span>Java</span><span>Go</span><span>Spring Boot</span><span>Gin</span><span>API REST</span><span>Microservizi</span><span>WebSocket</span><span>JWT</span><span>PostgreSQL</span><span>InfluxDB</span><span>MongoDB</span><span>MySQL</span>
-                <span aria-hidden="true">Java</span><span aria-hidden="true">Go</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Gin</span><span aria-hidden="true">API REST</span><span aria-hidden="true">Microservizi</span><span aria-hidden="true">WebSocket</span><span aria-hidden="true">JWT</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">InfluxDB</span><span aria-hidden="true">MongoDB</span><span aria-hidden="true">MySQL</span>
+                <span>Java</span><span>Go</span><span>Spring Boot</span><span>JPA/Hibernate</span><span>API REST</span><span>Microservizi</span><span>JWT</span><span>WebSocket</span><span>Swagger/OpenAPI</span><span>PostgreSQL</span><span>MySQL</span><span>MongoDB</span><span>InfluxDB 3</span><span>Vaadin</span><span>JUnit 5</span><span>Maven</span>
+                <span aria-hidden="true">Java</span><span aria-hidden="true">Go</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">JPA/Hibernate</span><span aria-hidden="true">API REST</span><span aria-hidden="true">Microservizi</span><span aria-hidden="true">JWT</span><span aria-hidden="true">WebSocket</span><span aria-hidden="true">Swagger/OpenAPI</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">MySQL</span><span aria-hidden="true">MongoDB</span><span aria-hidden="true">InfluxDB 3</span><span aria-hidden="true">Vaadin</span><span aria-hidden="true">JUnit 5</span><span aria-hidden="true">Maven</span>
             </div>
         </div>
-        <div class="marquee marquee-reverse" aria-label="DevOps, test e strumenti">
+        <div class="marquee marquee-reverse" aria-label="Cloud, DevOps e strumenti">
             <div class="marquee-track">
-                <span>Docker</span><span>Docker Compose</span><span>Git</span><span>Linux</span><span>Proxmox VE</span><span>Grafana</span><span>MQTT</span><span>Maven</span><span>JUnit 5</span><span>Vaadin</span>
-                <span aria-hidden="true">Docker</span><span aria-hidden="true">Docker Compose</span><span aria-hidden="true">Git</span><span aria-hidden="true">Linux</span><span aria-hidden="true">Proxmox VE</span><span aria-hidden="true">Grafana</span><span aria-hidden="true">MQTT</span><span aria-hidden="true">Maven</span><span aria-hidden="true">JUnit 5</span><span aria-hidden="true">Vaadin</span>
+                <span>Microsoft Azure</span><span>Terraform</span><span>Bicep</span><span>Docker</span><span>Kubernetes</span><span>AKS</span><span>Azure DevOps</span><span>GitHub Actions</span><span>CI/CD</span><span>Linux</span><span>Proxmox VE</span><span>LXC</span><span>Grafana</span><span>MQTT</span><span>Git</span><span>Claude Code</span>
+                <span aria-hidden="true">Microsoft Azure</span><span aria-hidden="true">Terraform</span><span aria-hidden="true">Bicep</span><span aria-hidden="true">Docker</span><span aria-hidden="true">Kubernetes</span><span aria-hidden="true">AKS</span><span aria-hidden="true">Azure DevOps</span><span aria-hidden="true">GitHub Actions</span><span aria-hidden="true">CI/CD</span><span aria-hidden="true">Linux</span><span aria-hidden="true">Proxmox VE</span><span aria-hidden="true">LXC</span><span aria-hidden="true">Grafana</span><span aria-hidden="true">MQTT</span><span aria-hidden="true">Git</span><span aria-hidden="true">Claude Code</span>
             </div>
         </div>
         <div class="container">
-            <p class="learning" data-reveal><span class="learning-label">In formazione</span> Azure · Azure DevOps · Terraform · Bicep · Kubernetes · AKS · Helm</p>
+            <p class="learning" data-reveal><span class="learning-label">Anche</span> Python · SQL · Lombok · Jackson · Clean Architecture · Gitea · OpenCode</p>
         </div>
     </section>
 
@@ -184,17 +184,17 @@
             <div class="about-text">
                 <p class="kicker" data-reveal>Chi sono</p>
                 <h2 class="section-title" data-reveal>Junior, <span class="gold-text">non improvvisato.</span></h2>
-                <p class="lead" data-reveal>Sono Jeanfranco, sviluppatore backend a Milano. Lavoro soprattutto con Java e Spring Boot, e con Go. Dopo il diploma di perito meccanico sono passato al software con l'ITS; ora sto completando un percorso da Cloud Engineer su Azure e sono all'ultimo anno di Ingegneria Informatica.</p>
-                <p class="note" data-reveal>Italiano e spagnolo madrelingua, inglese B2. Fuori dal codice: distribuzioni Linux, calcio, F1 e WEC.</p>
+                <p class="lead" data-reveal>Sono Jeanfranco, sviluppatore backend junior (Java/Spring Boot e Go) con un percorso un po' diverso dal solito: vengo dalla meccanica e sono arrivato al software passando per l'ITS, due tirocini e un corso da Cloud Engineer su Azure. In Sysnet eravamo in 8, con code review; la web app di Galilux l'ho realizzata e consegnata da solo. Cerco un ambiente in cui crescere e mettermi alla prova su progetti concreti.</p>
+                <p class="note" data-reveal>Italiano e spagnolo madrelingua, inglese B2. Fuori dal codice: installo distribuzioni Linux (dual boot su 5 PC), provo nuovi linguaggi, calcio e palestra, F1 e WEC, musica di ogni genere.</p>
 
                 <ol class="timeline" id="timeline">
-                    <li data-reveal><span class="tl-date">Ottobre 2026 – Novembre 2026</span><h3>Form&amp;Job · Junior Cloud Engineer</h3><p>160 ore di laboratori su Azure: amministrazione, DevOps e container, IaC e CI/CD, Kubernetes e AKS.</p></li>
-                    <li data-reveal><span class="tl-date">Aprile 2026 – Luglio 2026</span><h3>Sysnet · Tirocinante Sviluppatore Software</h3><p>Microservizio DB-Manager in Go e infrastruttura self-hosted su Proxmox VE, con Gitea e Grafana.</p></li>
+                    <li data-reveal><span class="tl-date">Ottobre 2026 – Novembre 2026</span><h3>Form&amp;Job · Junior Cloud Engineer</h3><p>160 ore di laboratori su Azure: VM e reti, IaC con Terraform e Bicep, Docker, CI/CD con Azure DevOps e GitHub Actions, Kubernetes su AKS. Laboratori pubblicati su GitHub.</p></li>
+                    <li data-reveal><span class="tl-date">Aprile 2026 – Luglio 2026</span><h3>Sysnet · Tirocinante Sviluppatore Software</h3><p>Microservizio DB-Manager in Go; deploy con Docker Compose in container LXC su Proxmox VE, infrastruttura configurata da zero con Gitea e Grafana.</p></li>
                     <li data-reveal><span class="tl-date">2026</span><h3>University of Helsinki (MOOC.fi)</h3><p>Certificazione Java Programming I &amp; II.</p></li>
-                    <li data-reveal><span class="tl-date">Luglio 2025 – Ottobre 2025</span><h3>Galilux · Tirocinante Sviluppatore Java</h3><p>Web app full-stack in Servlet/JSP per una scuola di lingue.</p></li>
-                    <li data-reveal><span class="tl-date">2025 – in corso</span><h3>Universitas Mercatorum</h3><p>Laurea Triennale in Ingegneria Informatica, ultimo anno.</p></li>
-                    <li data-reveal><span class="tl-date">2024 – 2026</span><h3>ITS Tech Talent Factory</h3><p>Diploma Backend Developer (EQF 5), voto 104/110.</p></li>
-                    <li data-reveal><span class="tl-date">2019 – 2024</span><h3>ITIS Galileo Galilei</h3><p>Diploma di Perito Meccanico.</p></li>
+                    <li data-reveal><span class="tl-date">Luglio 2025 – Ottobre 2025</span><h3>Galilux · Tirocinante Sviluppatore Java</h3><p>Web app full-stack in Servlet/JSP per una scuola di lingue, sviluppata da solo.</p></li>
+                    <li data-reveal><span class="tl-date">2025 – in corso</span><h3>Universitas Mercatorum</h3><p>Laurea Triennale in Ingegneria Informatica (L-8), ultimo anno: laurea prevista nel 2027.</p></li>
+                    <li data-reveal><span class="tl-date">Ottobre 2024 – Settembre 2026</span><h3>ITS Tech Talent Factory</h3><p>Diploma Backend Developer (EQF 5), voto 104/110. Due tirocini e la tesina BackendTelemetry.</p></li>
+                    <li data-reveal><span class="tl-date">2019 – 2024</span><h3>ITIS Galileo Galilei</h3><p>Diploma di Perito Meccanico: disegno tecnico, automazione e programmazione CNC.</p></li>
                 </ol>
             </div>
         </div>
@@ -207,7 +207,7 @@
             <h2 class="cta-title" data-reveal>Parliamo<span class="gold-text">.</span></h2>
             <p class="lead" data-reveal>Cerco un ruolo da Junior Backend Developer o Junior Cloud/DevOps. Disponibile da lunedì 9 novembre 2026.</p>
             <div class="hero-cta" data-reveal>
-                <a class="btn btn-gold" href="mailto:jean.alv0705@mail.com">Scrivimi</a>
+                <a class="btn btn-gold" href="mailto:jean.alv0705@gmail.com">Scrivimi</a>
                 <a class="btn btn-ghost" href="#">Scarica il CV</a>
             </div>
         </div>
