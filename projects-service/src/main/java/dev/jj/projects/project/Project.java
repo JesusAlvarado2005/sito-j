@@ -42,6 +42,6 @@ class Project {
     Set<Tag> tags = new HashSet<>();
 
     @Embeddable
-    record Text(String title, String summary, String bodyMd) {
+    record Text(String title, String summary, String bodyMd, String context) {
     }
 }

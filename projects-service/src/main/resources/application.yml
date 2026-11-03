@@ -19,6 +19,8 @@ spring:
         default_schema: projects
 
   flyway:
+    # db/seed = i miei dati reali (vuoto nei test). Versioni nella stessa sequenza delle migrazioni.
+    locations: classpath:db/migration,classpath:db/seed
     schemas: projects
     default-schema: projects
 

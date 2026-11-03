@@ -10,7 +10,7 @@ import java.util.Map;
 /** Scheda progetto. Nella lista bodyMd è null (e non viene serializzato); nel dettaglio è valorizzato. */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public record ProjectDto(
-        String slug, String title, String summary, String bodyMd, String coverImageUrl, String demoUrl,
+        String slug, String title, String summary, String context, String bodyMd, String coverImageUrl, String demoUrl,
         boolean featured, LocalDate startDate, LocalDate endDate,
         List<TagDto> tags, RepoDto repo) {
 

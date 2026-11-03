@@ -81,7 +81,7 @@ class ProjectService {
         List<TagDto> tags = p.tags.stream()
                 .sorted(Comparator.comparing(tag -> tag.name.toLowerCase()))
                 .map(tag -> new TagDto(tag.name, tag.slug)).toList();
-        return new ProjectDto(p.slug, t.title(), t.summary(), withBody ? t.bodyMd() : null,
+        return new ProjectDto(p.slug, t.title(), t.summary(), t.context(), withBody ? t.bodyMd() : null,
                 p.coverImageUrl, p.demoUrl, p.featured, p.startDate, p.endDate, tags, repo(p, s));
     }
 
