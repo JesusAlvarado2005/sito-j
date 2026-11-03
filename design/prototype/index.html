@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Jesus Alvarado — Junior Java Developer</title>
-    <meta name="description" content="Junior Java Developer. Backend con Java e Spring Boot, dal database al deploy.">
+    <title>Jeanfranco Alvarado — Junior Backend Developer</title>
+    <meta name="description" content="Jeanfranco Alvarado, Junior Backend Developer a Milano: Java, Spring Boot e Go, dal backend al cloud.">
     <!-- Tema applicato PRIMA del rendering: niente "lampo" bianco al caricamento -->
     <script>
         (function () {
@@ -17,18 +17,34 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="icon" href="logo.svg" type="image/svg+xml">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
+<!-- Logo "A" definito una volta e riusato; i colori seguono il tema -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" style="stop-color: var(--grad-a)"/>
+            <stop offset=".5" style="stop-color: var(--grad-b)"/>
+            <stop offset=".62" style="stop-color: var(--grad-c)"/>
+            <stop offset="1" style="stop-color: var(--grad-b)"/>
+        </linearGradient>
+        <symbol id="logoA" viewBox="0 0 100 100">
+            <path fill="url(#goldGrad)" fill-rule="evenodd" d="M46 5 L53.5 5 L85 87 L93 88 L93 91 L64 91 L64 88 L71 87 L64.6 66 L30.9 66 L22.5 87 L29 88 L29 91 L8 91 L8 88 L15.5 87 Z M50 18 L62.8 60 L33.3 60 Z"/>
+        </symbol>
+    </defs>
+</svg>
+
 <header class="nav" id="nav">
-    <a href="#top" class="brand" aria-label="Torna all'inizio">
-        <span class="monogram">JA</span>
+    <a href="#top" class="brand" aria-label="Jeanfranco Alvarado, torna all'inizio">
+        <svg class="logo"><use href="#logoA"/></svg>
     </a>
     <nav class="nav-links" aria-label="Navigazione principale">
-        <a href="#chi-sono">Chi sono</a>
         <a href="#progetti">Progetti</a>
         <a href="#skill">Skill</a>
+        <a href="#percorso">Percorso</a>
         <a href="#contatti">Contatti</a>
     </nav>
     <div class="nav-actions">
@@ -48,9 +64,9 @@
             <div class="hero-grid"></div>
         </div>
         <div class="hero-inner">
-            <p class="eyebrow hero-anim">Junior Java Developer · Italia</p>
-            <h1 class="hero-title hero-anim"><span class="gold-text">Jesus Alvarado.</span></h1>
-            <p class="hero-sub hero-anim">Costruisco backend solidi con Java e Spring&nbsp;Boot.<br>Dal database al deploy.</p>
+            <p class="eyebrow hero-anim">Junior Backend Developer · Milano</p>
+            <h1 class="hero-title hero-anim"><span class="gold-text">Jeanfranco<br>Alvarado.</span></h1>
+            <p class="hero-sub hero-anim">Java, Spring&nbsp;Boot e&nbsp;Go.<br>Dal backend al cloud.</p>
             <div class="hero-cta hero-anim">
                 <a class="btn btn-gold" href="#progetti">Guarda i progetti</a>
                 <a class="btn btn-ghost" href="#contatti">Contattami <span aria-hidden="true">→</span></a>
@@ -60,20 +76,20 @@
     </section>
 
     <!-- ============ MANIFESTO (parole che si accendono scorrendo) ============ -->
-    <section class="statement" aria-label="Manifesto">
-        <p class="statement-text" id="statement">Codice pulito. Architetture chiare. Test che fanno dormire tranquilli. E la voglia di imparare qualcosa di nuovo ogni giorno.</p>
+    <section class="statement" aria-label="In breve">
+        <p class="statement-text" id="statement">Vengo dalla meccanica. Oggi costruisco software: API REST, microservizi, telemetria in tempo reale. Dal backend al cloud, fino all'IoT.</p>
     </section>
 
     <!-- ============ NUMERI ============ -->
     <section class="numbers">
         <div class="container">
-            <p class="kicker" data-reveal>Questo sito è un progetto</p>
-            <h2 class="section-title" data-reveal>Costruito da zero.<br><span class="muted">Con cura, riga per riga.</span></h2>
+            <p class="kicker" data-reveal>In numeri</p>
+            <h2 class="section-title" data-reveal>Pochi numeri.<br><span class="muted">Tutti veri.</span></h2>
             <div class="stats">
-                <div class="stat" data-reveal><span class="stat-num" data-count="6">6</span><span class="stat-label">microservizi</span></div>
-                <div class="stat" data-reveal><span class="stat-num" data-count="45">45</span><span class="stat-label">test automatici</span></div>
-                <div class="stat" data-reveal><span class="stat-num" data-count="2">2</span><span class="stat-label">lingue</span></div>
-                <div class="stat" data-reveal><span class="stat-num"><span data-count="0">0</span>€</span><span class="stat-label">di hosting</span></div>
+                <div class="stat" data-reveal><span class="stat-num"><span data-count="50">50</span><small>Hz</small></span><span class="stat-label">telemetria live gestita nella tesina ITS</span></div>
+                <div class="stat" data-reveal><span class="stat-num" data-count="2">2</span><span class="stat-label">tirocini da sviluppatore, in Java e in Go</span></div>
+                <div class="stat" data-reveal><span class="stat-num"><span data-count="104">104</span><small>/110</small></span><span class="stat-label">voto del diploma ITS Backend Developer</span></div>
+                <div class="stat" data-reveal><span class="stat-num"><span data-count="160">160</span><small>h</small></span><span class="stat-label">di formazione cloud su Microsoft Azure</span></div>
             </div>
         </div>
     </section>
@@ -89,41 +105,48 @@
                     <div class="card-glow" aria-hidden="true"></div>
                     <div class="card-body">
                         <span class="badge">In evidenza</span>
+                        <h3>BackendTelemetry</h3>
+                        <p>Telemetria live del simulatore Le Mans Ultimate. Un bridge C++ invia i dati via WebSocket a 50&nbsp;Hz; il backend li salva su InfluxDB&nbsp;3 e una dashboard Vaadin li mostra in tempo reale, con mappa del tracciato e statistiche sui giri.</p>
+                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4.1</li><li>WebSocket</li><li>InfluxDB 3</li><li>Vaadin</li></ul>
+                    </div>
+                    <div class="card-meta">
+                        <div class="highlights">
+                            <div><b>50 Hz</b><span>flusso live</span></div>
+                            <div><b>~66</b><span>campi per campione</span></div>
+                            <div><b>drop-oldest</b><span>coda con backpressure</span></div>
+                        </div>
+                        <div class="meta-row"><span>Tesina ITS · team di 2 · 2026</span><a class="card-link" href="#">Scopri il progetto <span aria-hidden="true">→</span></a></div>
+                    </div>
+                </article>
+
+                <article class="card" data-reveal>
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <h3>DB-Manager</h3>
+                        <p>Microservizio in Go per la gestione dei pali lungo tratte ferroviarie: permessi per ruolo, autenticazione JWT e dati dei sensori MQTT salvati su PostgreSQL.</p>
+                        <ul class="tags"><li>Go</li><li>Gin</li><li>PostgreSQL</li><li>GORM</li><li>MQTT</li></ul>
+                    </div>
+                    <div class="meta-row"><span>Tirocinio Sysnet · 2026</span></div>
+                </article>
+
+                <article class="card" data-reveal>
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
                         <h3>sito-j</h3>
-                        <p>Il sito che stai guardando: 6 microservizi Spring Boot, PostgreSQL, Docker, bilingue, ospitato a costo zero.</p>
-                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4</li><li>PostgreSQL</li><li>Docker</li></ul>
+                        <p>Questo sito: microservizi Spring Boot, PostgreSQL e Docker, bilingue e online a costo zero.</p>
+                        <ul class="tags"><li>Java 25</li><li>Spring Boot 4</li><li>Docker</li></ul>
                     </div>
-                    <div class="card-meta">
-                        <div class="langbar" aria-label="Java 86%, HTML 9%, CSS 5%"><span style="--w:86%"></span><span style="--w:9%"></span><span style="--w:5%"></span></div>
-                        <div class="repo-stats"><span>★ <b data-count="12">12</b></span><span>Java</span><span>aggiornato 2 giorni fa</span></div>
-                        <a class="card-link" href="#">Scopri il progetto <span aria-hidden="true">→</span></a>
-                    </div>
+                    <div class="meta-row"><span>Progetto personale · 2026</span><a class="card-link" href="https://github.com/JesusAlvarado2005">GitHub <span aria-hidden="true">→</span></a></div>
                 </article>
 
                 <article class="card" data-reveal>
                     <div class="card-glow" aria-hidden="true"></div>
                     <div class="card-body">
-                        <h3>Progetto due</h3>
-                        <p>Descrizione breve del progetto: il problema, la soluzione, cosa ho fatto io.</p>
-                        <ul class="tags"><li>Spring Boot</li><li>REST</li></ul>
+                        <h3>Web app scuola di lingue</h3>
+                        <p>Applicazione web full-stack in Servlet/JSP, commissionata da un docente e sviluppata in un gruppo di quattro.</p>
+                        <ul class="tags"><li>Java</li><li>Servlet</li><li>JSP</li></ul>
                     </div>
-                    <div class="card-meta">
-                        <div class="langbar"><span style="--w:100%"></span></div>
-                        <a class="card-link" href="#">Scopri <span aria-hidden="true">→</span></a>
-                    </div>
-                </article>
-
-                <article class="card" data-reveal>
-                    <div class="card-glow" aria-hidden="true"></div>
-                    <div class="card-body">
-                        <h3>Progetto tre</h3>
-                        <p>Un altro progetto con una descrizione di una o due righe al massimo.</p>
-                        <ul class="tags"><li>Java</li><li>GitLab CI</li></ul>
-                    </div>
-                    <div class="card-meta">
-                        <div class="langbar"><span style="--w:70%"></span><span style="--w:30%"></span></div>
-                        <a class="card-link" href="#">Scopri <span aria-hidden="true">→</span></a>
-                    </div>
+                    <div class="meta-row"><span>Tirocinio Galilux · 2025</span></div>
                 </article>
             </div>
         </div>
@@ -133,37 +156,45 @@
     <section class="skills" id="skill">
         <div class="container">
             <p class="kicker" data-reveal>Skill</p>
-            <h2 class="section-title" data-reveal>Gli strumenti<br><span class="muted">che uso ogni giorno.</span></h2>
+            <h2 class="section-title" data-reveal>Gli strumenti<br><span class="muted">con cui lavoro.</span></h2>
         </div>
-        <div class="marquee" aria-label="Elenco skill">
+        <div class="marquee" aria-label="Linguaggi, backend e database">
             <div class="marquee-track">
-                <span>Java</span><span>Spring Boot</span><span>Spring Data JPA</span><span>Hibernate</span><span>PostgreSQL</span><span>Flyway</span><span>REST API</span><span>Maven</span>
-                <span aria-hidden="true">Java</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Spring Data JPA</span><span aria-hidden="true">Hibernate</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">Flyway</span><span aria-hidden="true">REST API</span><span aria-hidden="true">Maven</span>
+                <span>Java</span><span>Go</span><span>Spring Boot</span><span>Gin</span><span>API REST</span><span>Microservizi</span><span>WebSocket</span><span>JWT</span><span>PostgreSQL</span><span>InfluxDB</span><span>MongoDB</span><span>MySQL</span>
+                <span aria-hidden="true">Java</span><span aria-hidden="true">Go</span><span aria-hidden="true">Spring Boot</span><span aria-hidden="true">Gin</span><span aria-hidden="true">API REST</span><span aria-hidden="true">Microservizi</span><span aria-hidden="true">WebSocket</span><span aria-hidden="true">JWT</span><span aria-hidden="true">PostgreSQL</span><span aria-hidden="true">InfluxDB</span><span aria-hidden="true">MongoDB</span><span aria-hidden="true">MySQL</span>
             </div>
         </div>
-        <div class="marquee marquee-reverse" aria-hidden="true">
+        <div class="marquee marquee-reverse" aria-label="DevOps, test e strumenti">
             <div class="marquee-track">
-                <span>Docker</span><span>Git</span><span>GitHub Actions</span><span>Testcontainers</span><span>JUnit</span><span>Linux</span><span>Thymeleaf</span><span>Vaadin</span>
-                <span>Docker</span><span>Git</span><span>GitHub Actions</span><span>Testcontainers</span><span>JUnit</span><span>Linux</span><span>Thymeleaf</span><span>Vaadin</span>
+                <span>Docker</span><span>Docker Compose</span><span>Git</span><span>Linux</span><span>Proxmox VE</span><span>Grafana</span><span>MQTT</span><span>Maven</span><span>JUnit 5</span><span>Vaadin</span>
+                <span aria-hidden="true">Docker</span><span aria-hidden="true">Docker Compose</span><span aria-hidden="true">Git</span><span aria-hidden="true">Linux</span><span aria-hidden="true">Proxmox VE</span><span aria-hidden="true">Grafana</span><span aria-hidden="true">MQTT</span><span aria-hidden="true">Maven</span><span aria-hidden="true">JUnit 5</span><span aria-hidden="true">Vaadin</span>
             </div>
+        </div>
+        <div class="container">
+            <p class="learning" data-reveal><span class="learning-label">In formazione</span> Azure · Azure DevOps · Terraform · Bicep · Kubernetes · AKS · Helm</p>
         </div>
     </section>
 
     <!-- ============ CHI SONO + PERCORSO ============ -->
-    <section class="about" id="chi-sono">
+    <section class="about" id="percorso">
         <div class="container about-grid">
             <div class="about-photo" data-reveal>
-                <div class="photo-ring"><span>JA</span></div>
+                <div class="photo-ring"><svg class="logo logo-xl"><use href="#logoA"/></svg></div>
             </div>
             <div class="about-text">
                 <p class="kicker" data-reveal>Chi sono</p>
                 <h2 class="section-title" data-reveal>Junior, <span class="gold-text">non improvvisato.</span></h2>
-                <p class="lead" data-reveal>Qui andrà la tua bio: due o tre frasi su chi sei, cosa ti appassiona e che tipo di lavoro cerchi. Breve, diretta, umana.</p>
+                <p class="lead" data-reveal>Sono Jeanfranco, sviluppatore backend a Milano. Lavoro soprattutto con Java e Spring Boot, e con Go. Dopo il diploma di perito meccanico sono passato al software con l'ITS; ora sto completando un percorso da Cloud Engineer su Azure e sono all'ultimo anno di Ingegneria Informatica.</p>
+                <p class="note" data-reveal>Italiano e spagnolo madrelingua, inglese B2. Fuori dal codice: distribuzioni Linux, calcio, F1 e WEC.</p>
 
                 <ol class="timeline" id="timeline">
-                    <li data-reveal><span class="tl-date">2025 — oggi</span><h3>Ruolo attuale</h3><p>Azienda · cosa fai in una riga</p></li>
-                    <li data-reveal><span class="tl-date">2024 — 2025</span><h3>Esperienza precedente</h3><p>Azienda · cosa hai fatto</p></li>
-                    <li data-reveal><span class="tl-date">2019 — 2024</span><h3>Diploma / corso</h3><p>Scuola o istituto</p></li>
+                    <li data-reveal><span class="tl-date">Ottobre 2026 – Novembre 2026</span><h3>Form&amp;Job · Junior Cloud Engineer</h3><p>160 ore di laboratori su Azure: amministrazione, DevOps e container, IaC e CI/CD, Kubernetes e AKS.</p></li>
+                    <li data-reveal><span class="tl-date">Aprile 2026 – Luglio 2026</span><h3>Sysnet · Tirocinante Sviluppatore Software</h3><p>Microservizio DB-Manager in Go e infrastruttura self-hosted su Proxmox VE, con Gitea e Grafana.</p></li>
+                    <li data-reveal><span class="tl-date">2026</span><h3>University of Helsinki (MOOC.fi)</h3><p>Certificazione Java Programming I &amp; II.</p></li>
+                    <li data-reveal><span class="tl-date">Luglio 2025 – Ottobre 2025</span><h3>Galilux · Tirocinante Sviluppatore Java</h3><p>Web app full-stack in Servlet/JSP per una scuola di lingue.</p></li>
+                    <li data-reveal><span class="tl-date">2025 – in corso</span><h3>Universitas Mercatorum</h3><p>Laurea Triennale in Ingegneria Informatica, ultimo anno.</p></li>
+                    <li data-reveal><span class="tl-date">2024 – 2026</span><h3>ITS Tech Talent Factory</h3><p>Diploma Backend Developer (EQF 5), voto 104/110.</p></li>
+                    <li data-reveal><span class="tl-date">2019 – 2024</span><h3>ITIS Galileo Galilei</h3><p>Diploma di Perito Meccanico.</p></li>
                 </ol>
             </div>
         </div>
@@ -174,9 +205,9 @@
         <div class="cta-glow" aria-hidden="true"></div>
         <div class="container cta-inner">
             <h2 class="cta-title" data-reveal>Parliamo<span class="gold-text">.</span></h2>
-            <p class="lead" data-reveal>Un'opportunità, un progetto o anche solo un consiglio: rispondo sempre.</p>
+            <p class="lead" data-reveal>Cerco un ruolo da Junior Backend Developer o Junior Cloud/DevOps. Disponibile da lunedì 9 novembre 2026.</p>
             <div class="hero-cta" data-reveal>
-                <a class="btn btn-gold" href="#">Scrivimi</a>
+                <a class="btn btn-gold" href="mailto:jean.alv0705@mail.com">Scrivimi</a>
                 <a class="btn btn-ghost" href="#">Scarica il CV</a>
             </div>
         </div>
@@ -185,11 +216,11 @@
 
 <footer class="footer">
     <div class="container footer-inner">
-        <span>© 2026 Jesus Alvarado</span>
-        <nav class="socials" aria-label="Social">
+        <span>© 2026 Jeanfranco Alvarado</span>
+        <nav class="socials" aria-label="Profili">
             <a href="https://github.com/JesusAlvarado2005">GitHub</a>
-            <a href="#">GitLab</a>
-            <a href="#">LinkedIn</a>
+            <a href="https://gitlab.com/JesusAlvarado2005">GitLab</a>
+            <a href="https://www.linkedin.com/in/jeanfranco-alvarado-800a02344">LinkedIn</a>
         </nav>
     </div>
 </footer>
