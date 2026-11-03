@@ -1,0 +1,42 @@
+spring:
+  application:
+    name: web-public
+
+  messages:
+    basename: messages
+    # Se manca una chiave nella lingua richiesta si usa messages.properties, non la lingua del sistema
+    fallback-to-system-locale: false
+
+  thymeleaf:
+    # In sviluppo i template si rileggono a ogni richiesta; in produzione restano in cache
+    cache: ${THYMELEAF_CACHE:true}
+
+  # Timeout per tutte le chiamate verso i microservizi
+  http:
+    clients:
+      connect-timeout: 2s
+      read-timeout: 5s
+
+server:
+  port: ${SERVER_PORT:8080}
+  error:
+    include-stacktrace: never
+  compression:
+    enabled: true
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+site:
+  # URL pubblico (canonical, hreflang, sitemap). In produzione: SITE_BASE_URL=https://il-tuo-dominio
+  base-url: ${SITE_BASE_URL:http://localhost:8080}
+  profile-service-url: ${PROFILE_SERVICE_URL:http://localhost:8081}
+  projects-service-url: ${PROJECTS_SERVICE_URL:http://localhost:8082}
+  cache-ttl: PT5M

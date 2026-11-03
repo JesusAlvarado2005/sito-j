@@ -13,9 +13,10 @@ Il mio sito personale: chi sono, i progetti, il percorso e un form contatti.
 | `projects-service` — progetti, tag, statistiche sincronizzate da GitHub/GitLab | ✅ fatto, con test |
 | `contact-service` — form contatti (Turnstile, rate limit, IP in hash, notifica email, retention GDPR) | ✅ fatto, con test |
 | Prototipo grafico della home (`design/prototype`) | ✅ fatto |
-| `web-public` — sito pubblico in Thymeleaf | 🔜 prossimo |
+| `web-public` — sito pubblico in Thymeleaf (home bilingue, SEO, sitemap, loghi tecnologie) | ✅ fatto, con test |
+| Form contatti nel sito + gateway | 🔜 prossimo |
 | `web-admin` — pannello in Vaadin | ⏳ |
-| `gateway`, CI/CD, deploy | ⏳ |
+| CI/CD, deploy | ⏳ |
 
 ## Stack
 
@@ -35,7 +36,8 @@ docker compose up -d          # PostgreSQL
 ./mvnw -pl profile-service spring-boot:run
 ```
 
-Porte: profile `8081`, projects `8082`, contact `8083`.
+Porte: web-public `8080`, profile `8081`, projects `8082`, contact `8083`.
+I dati reali (profilo e progetti) sono nei seed Flyway `db/seed`. Per vedere il sito: avvia profile, projects e web-public, poi apri http://localhost:8080
 Esempio: `curl "localhost:8082/api/v1/projects?lang=it&featured=true"`
 
 ## Struttura
@@ -44,6 +46,7 @@ Esempio: `curl "localhost:8082/api/v1/projects?lang=it&featured=true"`
 profile-service/    API del profilo
 projects-service/   API dei progetti + sync GitHub/GitLab
 contact-service/    form contatti
+web-public/         sito pubblico (Spring MVC + Thymeleaf, IT/EN)
 design/prototype/   prototipo statico della home (HTML/CSS/GSAP)
 docker/             init del database
 docs/ARCHITETTURA.md  progetto completo: servizi, tabelle, API, flussi, sicurezza, hosting

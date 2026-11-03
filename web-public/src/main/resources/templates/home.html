@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html th:lang="${v.lang}" data-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <th:block th:replace="~{fragments :: seo(${v})}"></th:block>
+    <!-- Tema applicato PRIMA del rendering: niente "lampo" bianco al caricamento -->
+    <script>
+        (function () {
+            var saved = new URLSearchParams(location.search).get('theme') || localStorage.getItem('theme');
+            var theme = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <link rel="preload" th:href="@{/fonts/inter-latin-700.woff2}" as="font" type="font/woff2" crossorigin>
+    <link rel="icon" th:href="@{/logo.svg}" type="image/svg+xml">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+    <script type="application/ld+json" th:utext="${v.jsonLd}"></script>
+</head>
+<body>
+
+<svg th:replace="~{fragments :: sprite}"></svg>
+
+<header class="nav" id="nav">
+    <a href="#top" class="brand" th:aria-label="#{nav.top}">
+        <svg class="logo"><use href="#logoA"/></svg>
+    </a>
+    <nav class="nav-links" th:aria-label="#{nav.label}">
+        <a href="#progetti" th:text="#{nav.projects}">Progetti</a>
+        <a href="#skill" th:text="#{nav.skills}">Skill</a>
+        <a href="#percorso" th:text="#{nav.path}">Percorso</a>
+        <a href="#contatti" th:text="#{nav.contact}">Contatti</a>
+    </nav>
+    <div class="nav-actions">
+        <a class="lang" th:href="@{/{l}(l=${v.otherLang})}" th:attr="hreflang=${v.otherLang},lang=${v.otherLang}"
+           th:aria-label="#{nav.switch}" th:text="${#strings.toUpperCase(v.otherLang)}">EN</a>
+        <button class="theme-toggle" id="themeToggle" th:aria-label="#{nav.theme}">
+            <svg class="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 1.5v3M12 19.5v3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M1.5 12h3M19.5 12h3M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1"/></svg>
+            <svg class="icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        </button>
+    </div>
+</header>
+
+<main>
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="top">
+        <div class="hero-bg" aria-hidden="true">
+            <div class="hero-glow"></div>
+            <div class="hero-grid"></div>
+        </div>
+        <div class="hero-inner">
+            <p class="eyebrow hero-anim" th:text="${v.eyebrow}">Junior Backend Developer · Milano</p>
+            <h1 class="hero-title hero-anim"><span class="gold-text"><th:block th:text="${v.firstName}">Jeanfranco</th:block><br><th:block th:text="${v.lastName} + '.'">Alvarado.</th:block></span></h1>
+            <p class="hero-sub hero-anim" th:utext="#{hero.sub}">Java, Spring Boot e Go.<br>Dal backend al cloud.</p>
+            <div class="hero-cta hero-anim">
+                <a class="btn btn-gold" href="#progetti" th:text="#{hero.cta.projects}">Guarda i progetti</a>
+                <a class="btn btn-ghost" href="#contatti"><th:block th:text="#{hero.cta.contact}">Contattami</th:block> <span aria-hidden="true">→</span></a>
+            </div>
+        </div>
+        <div class="scroll-hint" aria-hidden="true"><span></span></div>
+    </section>
+
+    <!-- ============ MANIFESTO (parole che si accendono scorrendo) ============ -->
+    <section class="statement" th:aria-label="#{statement.label}">
+        <p class="statement-text" id="statement" th:text="#{home.statement}">Costruisco software lato server.</p>
+    </section>
+
+    <!-- ============ NUMERI ============ -->
+    <section class="numbers">
+        <div class="container">
+            <p class="kicker" data-reveal th:text="#{numbers.kicker}">In numeri</p>
+            <h2 class="section-title" data-reveal th:utext="#{numbers.title}">Pochi numeri.<br><span class="muted">Tutti veri.</span></h2>
+            <div class="stats">
+                <div class="stat" data-reveal th:each="i : ${#numbers.sequence(1, 4)}">
+                    <span class="stat-num"><span th:attr="data-count=#{|numbers.${i}.value|}" th:text="#{|numbers.${i}.value|}">50</span><small th:if="${!#strings.isEmpty(#messages.msgOrNull('numbers.' + i + '.unit'))}" th:text="#{|numbers.${i}.unit|}">Hz</small></span>
+                    <span class="stat-label" th:text="#{|numbers.${i}.label|}">etichetta</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ PROGETTI ============ -->
+    <section class="projects" id="progetti">
+        <div class="container">
+            <p class="kicker" data-reveal th:text="#{projects.kicker}">Progetti</p>
+            <h2 class="section-title" data-reveal th:text="#{projects.title}">Cose che ho costruito.</h2>
+
+            <p class="note" th:if="${v.featured.isEmpty() and v.projects.isEmpty()}" th:text="#{projects.empty}">Non disponibili.</p>
+
+            <div class="cards">
+                <article class="card card-featured" data-reveal th:each="p : ${v.featured}">
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <span class="badge" th:text="#{projects.featured}">In evidenza</span>
+                        <h3 th:text="${p.title}">Titolo</h3>
+                        <p th:text="${p.summary}">Descrizione</p>
+                        <ul class="tags"><li th:each="t : ${p.tags}" th:text="${t}">Java</li></ul>
+                    </div>
+                    <div class="card-meta">
+                        <div class="highlights" th:if="${!p.highlights.isEmpty()}">
+                            <div th:each="h : ${p.highlights}"><b th:text="${h.value}">50 Hz</b><span th:text="${h.label}">etichetta</span></div>
+                        </div>
+                        <div class="meta-row"><span th:text="${p.context}">contesto</span><a class="card-link" th:if="${p.repoUrl != null}" th:href="${p.repoUrl}" rel="noopener"><th:block th:text="${p.repoLabel}">GitLab</th:block> <span aria-hidden="true">→</span></a></div>
+                    </div>
+                </article>
+
+                <article class="card" data-reveal th:each="p : ${v.projects}">
+                    <div class="card-glow" aria-hidden="true"></div>
+                    <div class="card-body">
+                        <h3 th:text="${p.title}">Titolo</h3>
+                        <p th:text="${p.summary}">Descrizione</p>
+                        <ul class="tags"><li th:each="t : ${p.tags}" th:text="${t}">Java</li></ul>
+                    </div>
+                    <div class="meta-row"><span th:text="${p.context}">contesto</span><a class="card-link" th:if="${p.repoUrl != null}" th:href="${p.repoUrl}" rel="noopener"><th:block th:text="${p.repoLabel}">GitHub</th:block> <span aria-hidden="true">→</span></a></div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ SKILL (nastri che scorrono) ============ -->
+    <section class="skills" id="skill">
+        <div class="container">
+            <p class="kicker" data-reveal th:text="#{skills.kicker}">Skill</p>
+            <h2 class="section-title" data-reveal th:utext="#{skills.title}">Gli strumenti<br><span class="muted">con cui lavoro.</span></h2>
+        </div>
+        <div class="marquee" th:classappend="${rowStat.odd} ? 'marquee-reverse'" th:each="row, rowStat : ${v.skillRows}" th:aria-label="${row.label}">
+            <div class="marquee-track">
+                <!-- Lista ripetuta due volte per lo scorrimento infinito; la copia è nascosta ai lettori di schermo -->
+                <th:block th:each="copy : ${#numbers.sequence(0, 1)}">
+                    <span class="tech" th:each="c : ${row.chips}" th:attr="aria-hidden=${copy == 1} ? 'true'">
+                        <svg aria-hidden="true" th:if="${c.icon != null}"><use th:href="'#i-' + ${c.icon}"/></svg><th:block th:text="${c.name}">Java</th:block>
+                    </span>
+                </th:block>
+            </div>
+        </div>
+        <div class="container" th:if="${v.extraSkills != null}">
+            <p class="learning" data-reveal><span class="learning-label" th:text="${v.extraSkills.label}">E poi</span> <th:block th:each="c, st : ${v.extraSkills.chips}"><th:block th:text="${c.name}">API REST</th:block><th:block th:unless="${st.last}"> · </th:block></th:block></p>
+        </div>
+    </section>
+
+    <!-- ============ CHI SONO + PERCORSO ============ -->
+    <section class="about" id="percorso">
+        <div class="container about-grid">
+            <div class="about-photo" data-reveal>
+                <div class="photo-ring">
+                    <img th:if="${v.avatarUrl != null}" th:src="${v.avatarUrl}" th:alt="${v.firstName + ' ' + v.lastName}" width="400" height="400" loading="lazy">
+                    <svg th:unless="${v.avatarUrl != null}" class="logo logo-xl" aria-hidden="true"><use href="#logoA"/></svg>
+                </div>
+            </div>
+            <div class="about-text">
+                <p class="kicker" data-reveal th:text="#{about.kicker}">Chi sono</p>
+                <h2 class="section-title" data-reveal th:utext="#{about.title}">Junior, <span class="gold-text">non improvvisato.</span></h2>
+                <p class="lead" data-reveal th:if="${v.bio != null}" th:text="${v.bio}">Bio</p>
+                <p class="note" data-reveal th:text="#{about.note}">Lingue e interessi</p>
+
+                <ol class="timeline" id="timeline">
+                    <li data-reveal th:each="t : ${v.timeline}"><span class="tl-date" th:text="${t.period}">2026</span><h3 th:text="${t.title}">Titolo</h3><p th:text="${t.text}">Testo</p></li>
+                </ol>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============ CONTATTI ============ -->
+    <section class="cta" id="contatti">
+        <div class="cta-glow" aria-hidden="true"></div>
+        <div class="container cta-inner">
+            <h2 class="cta-title" data-reveal><th:block th:text="#{cta.title}">Parliamo</th:block><span class="gold-text">.</span></h2>
+            <p class="lead" data-reveal th:text="#{cta.text}">Cerco un ruolo.</p>
+            <div class="hero-cta" data-reveal>
+                <a class="btn btn-gold" th:if="${v.email != null}" th:href="'mailto:' + ${v.email}" th:text="#{cta.write}">Scrivimi</a>
+                <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="${v.cvUrl}" th:text="#{cta.cv}">Scarica il CV</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="footer">
+    <div class="container footer-inner">
+        <span>© 2026 <th:block th:text="${v.firstName + ' ' + v.lastName}">Jeanfranco Alvarado</th:block></span>
+        <nav class="socials" th:aria-label="#{footer.profiles}">
+            <a th:each="l : ${v.links}" th:href="${l.url}" th:text="${l.label}" rel="me noopener">GitHub</a>
+        </nav>
+    </div>
+</footer>
+
+<!-- GSAP + ScrollTrigger serviti da noi: nessuna richiesta a CDN esterne -->
+<script th:src="@{/js/gsap.min.js}" defer></script>
+<script th:src="@{/js/ScrollTrigger.min.js}" defer></script>
+<script th:src="@{/js/app.js}" defer></script>
+</body>
+</html>

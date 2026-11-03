@@ -27,7 +27,8 @@
         <module>profile-service</module>
         <module>projects-service</module>
         <module>contact-service</module>
-        <!-- prossimi: web-public, web-admin, gateway -->
+        <module>web-public</module>
+        <!-- prossimi: web-admin, gateway -->
     </modules>
 
     <properties>

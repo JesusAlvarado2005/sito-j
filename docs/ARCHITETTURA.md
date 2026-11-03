@@ -292,6 +292,8 @@ Convenzioni:
 **Resilienza:** risposte dei servizi in cache con Caffeine (TTL ~5 min). Se un servizio è giù si mostra l'ultimo dato in cache o una sezione vuota "elegante", mai una pagina di errore intera.
 **Stile:** HTML semantico + CSS proprio (o Pico/Tailwind via CDN), tema chiaro/scuro, mobile-first. Niente framework JS: un pizzico di JS solo dove serve.
 
+> **Aggiornamento (nov 2026):** la home è un'unica pagina con sezioni (progetti, skill, percorso, contatti), come nel prototipo; `/{lang}/about` e `/{lang}/projects` non esistono come pagine separate. Implementati: `/`, `/{lang}`, `/robots.txt`, `/sitemap.xml`. Il dettaglio progetto e il form contatti arrivano dopo (il form richiede il gateway, vedi §8.1). I testi del sito stanno in `messages_*.properties`; i dati personali arrivano dai servizi, con cache e ultimo dato buono se un servizio è giù.
+
 ### 5.2 web-admin (Vaadin), il pannello di controllo
 
 | Vista | Contenuto |
