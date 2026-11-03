@@ -52,6 +52,11 @@ server:
     include-stacktrace: never
 
 management:
+  health:
+    # Le email partono in modo asincrono (outbox con tentativi): se Gmail è giù il form funziona lo stesso,
+    # quindi l'SMTP non deve rendere "DOWN" il servizio (Docker lo considererebbe guasto)
+    mail:
+      enabled: false
   endpoints:
     web:
       exposure:

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html th:lang="${v.lang}" data-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title th:text="#{privacy.title} + ' — ' + ${v.firstName} + ' ' + ${v.lastName}">Privacy</title>
+    <meta name="robots" content="noindex">
+    <script>
+        (function () {
+            var theme = localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.dataset.theme = theme;
+        })();
+    </script>
+    <link rel="icon" th:href="@{/logo.svg}" type="image/svg+xml">
+    <link rel="stylesheet" th:href="@{/css/site.css}">
+</head>
+<body>
+<svg th:replace="~{fragments :: sprite}"></svg>
+<header class="nav scrolled">
+    <a th:href="@{/{l}(l=${v.lang})}" class="brand" th:aria-label="#{privacy.back}"><svg class="logo"><use href="#logoA"/></svg></a>
+    <div class="nav-actions">
+        <a class="lang" th:href="@{/{l}/privacy(l=${v.otherLang})}" th:attr="hreflang=${v.otherLang},lang=${v.otherLang}"
+           th:text="${#strings.toUpperCase(v.otherLang)}">EN</a>
+    </div>
+</header>
+<main class="legal container">
+    <p class="kicker" th:text="#{privacy.kicker}">Privacy</p>
+    <h1 class="section-title" th:text="#{privacy.title}">Come tratto i tuoi dati</h1>
+    <p class="lead" th:text="#{privacy.intro}">Intro</p>
+    <section th:each="n : ${#numbers.sequence(1, 6)}">
+        <h2 th:text="#{|privacy.s${n}.title|}">Titolo</h2>
+        <p th:utext="#{|privacy.s${n}.text|(${#strings.escapeXml(v.email)})}">Testo</p>
+    </section>
+    <p class="note" th:text="#{privacy.updated}">Aggiornata</p>
+    <p><a class="card-link" th:href="@{/{l}(l=${v.lang})}"><span aria-hidden="true">←</span> <th:block th:text="#{privacy.back}">Torna al sito</th:block></a></p>
+</main>
+<footer class="footer">
+    <div class="container footer-inner"><span>© 2026 <th:block th:text="${v.firstName + ' ' + v.lastName}">Jeanfranco Alvarado</th:block></span></div>
+</footer>
+</body>
+</html>

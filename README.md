@@ -14,9 +14,9 @@ Il mio sito personale: chi sono, i progetti, il percorso e un form contatti.
 | `contact-service` — form contatti (Turnstile, rate limit, IP in hash, notifica email, retention GDPR) | ✅ fatto, con test |
 | Prototipo grafico della home (`design/prototype`) | ✅ fatto |
 | `web-public` — sito pubblico in Thymeleaf (home bilingue, SEO, sitemap, loghi tecnologie) | ✅ fatto, con test |
-| Form contatti nel sito + gateway | 🔜 prossimo |
+| Form contatti nel sito (rate limit, honeypot, Turnstile, privacy IT/EN) | ✅ fatto, con test |
+| Gateway / Caddy, CI/CD, deploy | 🔜 prossimo |
 | `web-admin` — pannello in Vaadin | ⏳ |
-| CI/CD, deploy | ⏳ |
 
 ## Stack
 

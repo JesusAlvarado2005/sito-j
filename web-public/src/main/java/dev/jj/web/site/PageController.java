@@ -2,11 +2,14 @@ package dev.jj.web.site;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import dev.jj.web.contact.ContactForm;
+import dev.jj.web.contact.ContactFormProperties;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.util.Locale;
@@ -15,9 +18,11 @@ import java.util.Locale;
 class PageController {
 
     private final SiteService site;
+    private final ContactFormProperties contact;
 
-    PageController(SiteService site) {
+    PageController(SiteService site, ContactFormProperties contact) {
         this.site = site;
+        this.contact = contact;
     }
 
     /** "/" manda alla lingua del browser: italiano se lo preferisce, altrimenti inglese. */
@@ -39,8 +44,17 @@ class PageController {
     }
 
     @GetMapping("/{lang:it|en}")
-    String home(@PathVariable String lang, Model model) {
+    String home(@PathVariable String lang, @RequestParam(required = false) String sent, Model model) {
         model.addAttribute("v", site.home(lang));
+        model.addAttribute("form", new ContactForm());
+        model.addAttribute("siteKey", contact.turnstileSiteKey());
+        model.addAttribute("sent", sent != null);
         return "home";
+    }
+
+    @GetMapping("/{lang:it|en}/privacy")
+    String privacy(@PathVariable String lang, Model model) {
+        model.addAttribute("v", site.home(lang));
+        return "privacy";
     }
 }

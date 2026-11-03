@@ -166,10 +166,41 @@
         <div class="container cta-inner">
             <h2 class="cta-title" data-reveal><th:block th:text="#{cta.title}">Parliamo</th:block><span class="gold-text">.</span></h2>
             <p class="lead" data-reveal th:text="#{cta.text}">Cerco un ruolo.</p>
-            <div class="hero-cta" data-reveal>
-                <a class="btn btn-gold" th:if="${v.email != null}" th:href="'mailto:' + ${v.email}" th:text="#{cta.write}">Scrivimi</a>
-                <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="${v.cvUrl}" th:text="#{cta.cv}">Scarica il CV</a>
-            </div>
+
+            <p class="form-status form-ok" role="status" th:if="${sent}" th:text="#{contact.sent}">Messaggio inviato.</p>
+
+            <form id="contactForm" class="contact-form" data-reveal method="post"
+                  th:action="@{/{l}/contact(l=${v.lang})}" th:object="${form}" th:unless="${sent}">
+                <p class="form-status form-error" role="alert" th:if="${contactError != null}" th:text="#{${contactError}}">Errore</p>
+                <div class="field-row">
+                    <label class="field"><span th:text="#{contact.name}">Nome</span>
+                        <input type="text" th:field="*{name}" required maxlength="100" autocomplete="name" th:errorclass="invalid">
+                        <small class="field-error" th:if="${#fields.hasErrors('name')}" th:text="#{contact.error.field}">Controlla</small></label>
+                    <label class="field"><span th:text="#{contact.email}">Email</span>
+                        <input type="email" th:field="*{email}" required maxlength="255" autocomplete="email" th:errorclass="invalid">
+                        <small class="field-error" th:if="${#fields.hasErrors('email')}" th:text="#{contact.error.email}">Controlla</small></label>
+                </div>
+                <label class="field"><span th:text="#{contact.subject}">Oggetto</span>
+                    <input type="text" th:field="*{subject}" required maxlength="150" th:errorclass="invalid">
+                    <small class="field-error" th:if="${#fields.hasErrors('subject')}" th:text="#{contact.error.field}">Controlla</small></label>
+                <label class="field"><span th:text="#{contact.body}">Messaggio</span>
+                    <textarea th:field="*{body}" required maxlength="5000" rows="6" th:errorclass="invalid"></textarea>
+                    <small class="field-error" th:if="${#fields.hasErrors('body')}" th:text="#{contact.error.field}">Controlla</small></label>
+
+                <!-- Trappola per bot: nascosta alle persone e ai lettori di schermo -->
+                <div class="hp" aria-hidden="true"><label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+
+                <!-- Widget anti-bot: lo script di Cloudflare si carica solo quando il form sta per comparire (vedi app.js) -->
+                <div class="cf-turnstile" data-theme="auto" th:attr="data-sitekey=${siteKey},data-language=${v.lang}"></div>
+                <noscript><p class="note" th:text="#{contact.noscript}">Serve JavaScript.</p></noscript>
+
+                <div class="form-actions">
+                    <button class="btn btn-gold" type="submit" th:text="#{contact.send}">Invia</button>
+                    <a class="btn btn-ghost" th:if="${v.email != null}" th:href="'mailto:' + ${v.email}" th:text="#{cta.write}">Scrivimi un'email</a>
+                    <a class="btn btn-ghost" th:if="${v.cvUrl != null}" th:href="${v.cvUrl}" th:text="#{cta.cv}">Scarica il CV</a>
+                </div>
+                <p class="form-privacy"><th:block th:text="#{contact.privacy}">I tuoi dati servono solo a risponderti.</th:block> <a th:href="@{/{l}/privacy(l=${v.lang})}" th:text="#{contact.privacy.link}">Privacy</a></p>
+            </form>
         </div>
     </section>
 </main>
@@ -179,6 +210,7 @@
         <span>© 2026 <th:block th:text="${v.firstName + ' ' + v.lastName}">Jeanfranco Alvarado</th:block></span>
         <nav class="socials" th:aria-label="#{footer.profiles}">
             <a th:each="l : ${v.links}" th:href="${l.url}" th:text="${l.label}" rel="me noopener">GitHub</a>
+            <a th:href="@{/{l}/privacy(l=${v.lang})}">Privacy</a>
         </nav>
     </div>
 </footer>

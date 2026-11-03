@@ -508,6 +508,19 @@ Questi punti sono **presupposti** dai servizi interni. Vanno implementati e test
 3. **Limite di dimensione del body** (es. 64 KB) nel gateway: contact-service valida i campi dopo il parsing del JSON.
 4. **Le API `/api/**` non sono instradate verso l'esterno.**
 
+**Stato (nov 2026), form contatti in web-public:**
+
+| Obbligo | Dove è implementato |
+|---|---|
+| 1. IP reale | Caddy sostituisce `X-Forwarded-For` con l'IP del client (non si fida degli header in arrivo). In web-public `server.forward-headers-strategy: native`: Tomcat usa `X-Forwarded-For` **solo** se la richiesta arriva da un proxy interno (reti private, localhost). web-public costruisce da sé `X-Client-Ip` verso contact-service: quello inviato dal browser non viene mai inoltrato (test `lIpMandatoDalBrowserNonArrivaMaiAlServizio`). |
+| 2. Rate limit rigido | `FormRateLimiter` in web-public: 5 invii/ora per IP e 50/ora in totale, `synchronized` (nessun superamento con richieste simultanee), massimo 10.000 IP in memoria, poi rifiuta (fail-closed). Si conta solo dopo validazione e token presente. |
+| 3. Limite body | `server.tomcat.max-http-form-post-size: 64KB` in web-public (verificato: 100 KB → 413). In produzione anche `request_body max_size` in Caddy. |
+| 4. `/api/**` non esposte | I servizi non pubblicano porte; Caddy instrada solo verso web-public. |
+
+Altre difese del form: honeypot (campo trappola, risposta identica a un successo), Turnstile fail-closed, script di Cloudflare caricato solo vicino al form, Post/Redirect/Get, pagina privacy IT/EN.
+**Presupposto da rispettare nel deploy:** web-public non deve mai essere raggiungibile direttamente da Internet, altrimenti un client potrebbe falsificare `X-Forwarded-For`.
+**CSP (da impostare in Caddy):** `script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com` (l'inline serve allo script del tema e al JSON-LD).
+
 ---
 
 ## 9. Infrastruttura e deploy

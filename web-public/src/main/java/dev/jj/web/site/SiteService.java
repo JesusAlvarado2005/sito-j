@@ -54,7 +54,7 @@ public class SiteService {
                 profile != null && notBlank(profile.headline()) ? profile.headline() : msg("hero.eyebrow", locale),
                 profile == null ? null : profile.bioMd(),
                 profile == null ? null : safeUrl(profile.avatarUrl()),
-                profile == null ? null : profile.publicEmail(),
+                profile != null && notBlank(profile.publicEmail()) ? profile.publicEmail() : msg("site.email", locale),
                 profile == null ? null : safeUrl(profile.cvUrl()),
                 featured, others,
                 profile == null ? List.of() : skillRows(profile, "BACKEND", "CLOUD"),

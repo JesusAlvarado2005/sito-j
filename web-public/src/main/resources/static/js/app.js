@@ -37,6 +37,29 @@
         });
     }
 
+    /* ---------- Turnstile (anti-bot): lo script di Cloudflare si carica solo vicino al form ----------
+       Così chi non arriva ai contatti non contatta mai Cloudflare (privacy e velocità). */
+    const contactForm = document.getElementById('contactForm');
+    if (contactForm) {
+        const loadTurnstile = () => {
+            if (document.getElementById('cf-turnstile-js')) return;
+            const s = document.createElement('script');
+            s.id = 'cf-turnstile-js';
+            s.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js';
+            s.async = true;
+            document.head.appendChild(s);
+        };
+        contactForm.addEventListener('focusin', loadTurnstile, { once: true });
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver(entries => {
+                if (entries.some(e => e.isIntersecting)) { loadTurnstile(); io.disconnect(); }
+            }, { rootMargin: '600px' });
+            io.observe(contactForm);
+        } else {
+            loadTurnstile();
+        }
+    }
+
     const staticMode = location.search.includes('static');   // ?static: niente animazioni (screenshot/debug)
     if (staticMode || reduceMotion || !window.gsap || !window.ScrollTrigger) {
         return;   // versione statica: tutto già visibile

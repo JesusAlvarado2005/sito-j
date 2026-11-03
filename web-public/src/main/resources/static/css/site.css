@@ -374,3 +374,32 @@ a { color: inherit; text-decoration: none; }
     *, *::before, *::after { animation: none !important; transition: none !important; }
     html { scroll-behavior: auto; }
 }
+
+/* ---------- Form contatti ---------- */
+.contact-form { width: 100%; max-width: 720px; margin: 48px auto 0; text-align: left; display: grid; gap: 18px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 8px; font-size: 14px; font-weight: 600; color: var(--muted); }
+.field input, .field textarea {
+    width: 100%; font: inherit; font-size: 16px; font-weight: 400; color: var(--text);
+    padding: 14px 16px; border-radius: 14px; resize: vertical;
+    background: var(--bg-elev); border: 1px solid var(--line);
+    transition: border-color .25s, box-shadow .25s;
+}
+.field input:focus, .field textarea:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px color-mix(in srgb, var(--gold) 22%, transparent); }
+.field .invalid { border-color: #d9534f; }
+.field-error { color: #e0726e; font-weight: 500; }
+.hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.cf-turnstile { min-height: 65px; }
+.form-actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+.form-status { max-width: 720px; margin: 32px auto 0; padding: 14px 18px; border-radius: 14px; font-weight: 500; }
+.form-ok { color: var(--gold-text); border: 1px solid color-mix(in srgb, var(--gold) 50%, transparent); background: color-mix(in srgb, var(--gold) 8%, transparent); }
+.form-error { margin: 0; color: #e0726e; border: 1px solid color-mix(in srgb, #d9534f 50%, transparent); background: color-mix(in srgb, #d9534f 8%, transparent); }
+.form-privacy { margin: 0; font-size: 13px; color: var(--muted); }
+.form-privacy a { color: var(--gold-text); }
+@media (max-width: 640px) { .field-row { grid-template-columns: 1fr; } }
+
+/* ---------- Pagina privacy ---------- */
+.legal { max-width: 760px; padding-top: 140px; padding-bottom: 100px; }
+.legal h2 { font-size: 1.3rem; margin: 40px 0 8px; }
+.legal p { color: var(--muted); line-height: 1.7; }
+.legal a { color: var(--gold-text); }

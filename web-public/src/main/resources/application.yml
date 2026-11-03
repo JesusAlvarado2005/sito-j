@@ -19,6 +19,13 @@ spring:
 
 server:
   port: ${SERVER_PORT:8080}
+  # IP reale del visitatore: Tomcat legge X-Forwarded-For SOLO se la richiesta arriva da un proxy interno
+  # (reti private e localhost: Caddy/gateway nella rete Docker). Un X-Forwarded-For inviato da fuori non conta.
+  forward-headers-strategy: native
+  tomcat:
+    # Il form pesa pochi KB: oltre i 64 KB la richiesta non viene nemmeno letta
+    max-http-form-post-size: 64KB
+    max-swallow-size: 64KB
   error:
     include-stacktrace: never
   compression:
@@ -40,3 +47,10 @@ site:
   profile-service-url: ${PROFILE_SERVICE_URL:http://localhost:8081}
   projects-service-url: ${PROJECTS_SERVICE_URL:http://localhost:8082}
   cache-ttl: PT5M
+  contact:
+    service-url: ${CONTACT_SERVICE_URL:http://localhost:8083}
+    # Site key pubblica di Cloudflare Turnstile. In sviluppo: 1x00000000000000000000AA (chiave di test)
+    turnstile-site-key: ${TURNSTILE_SITE_KEY:}
+    per-ip: 5
+    global: 50
+    window: PT1H
