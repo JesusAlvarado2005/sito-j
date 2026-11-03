@@ -260,13 +260,16 @@ a { color: inherit; text-decoration: none; }
 .marquee-track { display: flex; gap: 16px; flex-shrink: 0; animation: marquee 40s linear infinite; }
 .marquee-reverse .marquee-track { animation-direction: reverse; animation-duration: 46s; }
 .marquee:hover .marquee-track { animation-play-state: paused; }
-.marquee span {
-    font-size: clamp(1.4rem, 3vw, 2.4rem); font-weight: 700; letter-spacing: -.02em;
-    padding: 18px 34px; border-radius: 980px; white-space: nowrap;
+.marquee .tech {
+    display: inline-flex; align-items: center; gap: 14px;
+    font-size: clamp(1.3rem, 2.6vw, 2.1rem); font-weight: 700; letter-spacing: -.02em;
+    padding: 16px 30px 16px 24px; border-radius: 980px; white-space: nowrap;
     background: var(--bg-elev); border: 1px solid var(--line);
-    transition: color .3s, border-color .3s;
+    transition: color .3s, border-color .3s, box-shadow .3s;
 }
-.marquee span:hover { color: var(--gold-text); border-color: var(--gold); }
+.marquee .tech svg { width: 1.1em; height: 1.1em; flex-shrink: 0; fill: var(--gold-text); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+.marquee .tech:hover { color: var(--gold-text); border-color: var(--gold); box-shadow: 0 0 40px var(--glow); }
+.marquee .tech:hover svg { transform: scale(1.2) rotate(-6deg); }
 @keyframes marquee { to { transform: translateX(calc(-50% - 8px)); } }
 
 /* ---------- Chi sono ---------- */
