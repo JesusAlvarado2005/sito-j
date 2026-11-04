@@ -12,8 +12,8 @@ public record HomeView(
         List<TimelineItem> timeline, List<Link> links,
         String seoTitle, String seoDescription, String canonicalUrl, String alternateUrl, String jsonLd) {
 
-    public record ProjectCard(String slug, String title, String summary, String context, List<String> tags,
-                              String repoUrl, String repoLabel, String demoUrl, List<Highlight> highlights) {
+    public record ProjectCard(String title, String summary, String context, List<String> tags,
+                              String repoUrl, String repoLabel, List<Highlight> highlights) {
     }
 
     public record Highlight(String value, String label) {

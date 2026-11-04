@@ -59,7 +59,7 @@ class MessageService {
 
     /**
      * Limite "morbido": due richieste simultanee possono superarlo di poco (nessun lock).
-     * Va bene come difesa in profondità; il limite rigido sarà nel gateway.
+     * Va bene come difesa in profondità: il limite rigido è in web-public (FormRateLimiter).
      */
     private void checkRateLimit(String ipHash) {
         ContactProperties.RateLimit limit = props.rateLimit();
@@ -83,7 +83,7 @@ class MessageService {
     }
 
     /**
-     * L'header arriva da web-public/gateway, che DEVONO sovrascriverlo con l'IP reale.
+     * L'header arriva da web-public, che lo costruisce da sé con l'IP reale (mai quello inviato dal browser).
      * Qui scartiamo comunque ciò che non sembra un IP, così non finisce nell'hash né a Cloudflare.
      */
     static String validIpOrNull(String header) {

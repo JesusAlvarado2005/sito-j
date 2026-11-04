@@ -74,7 +74,7 @@ contact:
     url: https://challenges.cloudflare.com/turnstile/v0/siteverify
   # Chiave HMAC per l'hash degli IP. OBBLIGATORIA: senza, il servizio non parte.
   ip-salt: ${CONTACT_IP_SALT:}
-  # Difesa in profondità: il rate limit principale sarà nel gateway
+  # Difesa in profondità: il rate limit principale è in web-public
   rate-limit:
     per-ip: 5
     global: 50

@@ -59,7 +59,7 @@ profile-service/   projects-service/   contact-service/   web-public/
 docker/            Caddyfile e init del database
 scripts/           export della copia statica e pubblicazione su GitHub Pages
 docs/              ARCHITETTURA.md, DEPLOY.md
-design/prototype/  prototipo grafico iniziale (HTML/CSS/GSAP)
+.github/workflows/ CI: build, test e immagini Docker su GHCR
 ```
 
 ## Autore

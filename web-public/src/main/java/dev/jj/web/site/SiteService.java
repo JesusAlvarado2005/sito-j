@@ -79,9 +79,9 @@ public class SiteService {
                 highlights.add(new Highlight(value, label));
             }
         }
-        return new ProjectCard(p.slug(), p.title(), p.summary(), p.context(),
+        return new ProjectCard(p.title(), p.summary(), p.context(),
                 p.tags() == null ? List.of() : p.tags().stream().map(ProjectDto.TagDto::name).toList(),
-                p.repo() == null ? null : safeUrl(p.repo().url()), repoLabel, safeUrl(p.demoUrl()), highlights);
+                p.repo() == null ? null : safeUrl(p.repo().url()), repoLabel, highlights);
     }
 
     private List<SkillRow> skillRows(ProfileDto profile, String... codes) {

@@ -7,7 +7,7 @@
         POM PARENT (aggregatore) del progetto multi-modulo.
         - Eredita da spring-boot-starter-parent: versioni delle dipendenze, configurazione dei plugin, encoding.
         - Elenca i moduli (i microservizi) in <modules>: "./mvnw verify" dalla root li compila tutti.
-        - Qui si centralizzano le versioni comuni (Java, e in futuro i BOM di Spring Cloud e Vaadin).
+        - Qui si centralizzano le impostazioni comuni (versione di Java, encoding).
     -->
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -28,18 +28,10 @@
         <module>projects-service</module>
         <module>contact-service</module>
         <module>web-public</module>
-        <!-- prossimi: web-admin, gateway -->
     </modules>
 
     <properties>
         <java.version>25</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Immagine Postgres usata sia in docker-compose sia nei test (Testcontainers) -->
-        <postgres.image>postgres:18-alpine</postgres.image>
     </properties>
-
-    <!--
-        Quando aggiungeremo gateway e web-admin, qui andranno i BOM:
-        <dependencyManagement> spring-cloud-dependencies + vaadin-bom </dependencyManagement>
-    -->
 </project>

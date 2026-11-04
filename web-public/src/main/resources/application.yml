@@ -20,7 +20,7 @@ spring:
 server:
   port: ${SERVER_PORT:8080}
   # IP reale del visitatore: Tomcat legge X-Forwarded-For SOLO se la richiesta arriva da un proxy interno
-  # (reti private e localhost: Caddy/gateway nella rete Docker). Un X-Forwarded-For inviato da fuori non conta.
+  # (reti private e localhost: Caddy nella rete Docker). Un X-Forwarded-For inviato da fuori non conta.
   forward-headers-strategy: native
   tomcat:
     # Redirect relativi ("Location: /it"): dietro un proxy Tomcat non conosce porta e dominio pubblici,

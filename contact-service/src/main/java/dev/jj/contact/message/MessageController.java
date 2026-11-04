@@ -16,7 +16,7 @@ class MessageController {
 
     /**
      * web-public inoltra qui il form. L'IP reale del visitatore arriva nell'header X-Client-Ip
-     * (il servizio non è raggiungibile da Internet: solo web-public e gateway lo chiamano).
+     * (il servizio non è raggiungibile da Internet: lo chiama solo web-public, dalla rete interna).
      */
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)

@@ -6,6 +6,8 @@ Le immagini Docker le costruisce GitHub Actions a ogni push su `main` e le pubbl
 ## 1. Immagini pubbliche su GHCR (una volta sola)
 Dopo il primo push su `main` con la CI verde, su GitHub: profilo → **Packages** → per ognuno dei 4 pacchetti
 `sito-j-*` → *Package settings* → *Change visibility* → **Public**. Così la VM le scarica senza login.
+Nella stessa pagina, in *Manage Actions access*, il repository `sito-j` deve avere il ruolo **Write**:
+senza, la CI non può aggiornare le immagini (`permission_denied: write_package`).
 
 ## 2. La VM
 1. Registrati su https://www.oracle.com/cloud/free/ (serve una carta solo per la verifica; resta sul piano Free).
