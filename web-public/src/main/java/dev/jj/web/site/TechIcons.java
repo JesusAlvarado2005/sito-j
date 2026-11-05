@@ -8,7 +8,7 @@ final class TechIcons {
     private static final Map<String, String> ICONS = Map.ofEntries(
             Map.entry("Java", "openjdk"), Map.entry("Go", "go"), Map.entry("Spring Boot", "springboot"),
             Map.entry("Hibernate", "hibernate"), Map.entry("Gin", "gin"), Map.entry("PostgreSQL", "postgresql"),
-            Map.entry("MySQL", "mysql"), Map.entry("MongoDB", "mongodb"), Map.entry("InfluxDB", "influxdb"),
+            Map.entry("MySQL", "mysql"), Map.entry("InfluxDB", "influxdb"),
             Map.entry("Vaadin", "vaadin"), Map.entry("JUnit 5", "junit5"), Map.entry("Maven", "apachemaven"),
             Map.entry("Swagger", "swagger"), Map.entry("JWT", "jsonwebtokens"), Map.entry("Python", "python"),
             Map.entry("Azure", "azure"), Map.entry("Azure DevOps", "azuredevops"), Map.entry("Terraform", "terraform"),

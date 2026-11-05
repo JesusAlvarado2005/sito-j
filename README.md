@@ -57,7 +57,7 @@ cp .env.example .env                                 # poi metti password e segr
 ```
 profile-service/   projects-service/   contact-service/   web-public/
 docker/            Caddyfile e init del database
-scripts/           export della copia statica e pubblicazione su GitHub Pages
+scripts/           export della copia statica, pubblicazione su GitHub Pages, versione pubblica del CV
 docs/              ARCHITETTURA.md, DEPLOY.md
 .github/workflows/ CI: build, test e immagini Docker su GHCR
 ```
